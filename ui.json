@@ -4,7 +4,7 @@
     "menuEntries": [
         {
         "label": "Scan-a-lot",
-        "menu": "orders",
+        "menu": "order",
         "urlKey": "hello-world",
         "entryPoint": "index.html"
         }
