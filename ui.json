@@ -1,10 +1,10 @@
 {
     "defaultEntryPoint": "index.html",
-    "namespace": "MyFirstView",
+    "namespace": "Scan-a-lot",
     "menuEntries": [
         {
-        "label": "Hello World",
-        "menu": "start",
+        "label": "Scan-a-lot",
+        "menu": "orders",
         "urlKey": "hello-world",
         "entryPoint": "index.html"
         }
