@@ -1,11 +1,11 @@
 {
-    "defaultEntryPoint": "index.html",
+    "defaultEntryPoint": "index.php",
     "namespace": "Scan-a-lot",
     "menuEntries": [
         {
         "label": "Scan-a-lot",
         "menu": "order",
-        "urlKey": "scan-a-lot",
+        "urlKey": "hello-world",
         "entryPoint": "index.php"
         }
     ]
