@@ -5,8 +5,8 @@
         {
         "label": "Scan-a-lot",
         "menu": "order",
-        "urlKey": "hello-world",
-        "entryPoint": "index.html"
+        "urlKey": "scan-a-lot",
+        "entryPoint": "index.php"
         }
     ]
 }
