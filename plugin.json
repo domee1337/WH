@@ -4,5 +4,7 @@
     "namespace"         :"fs24",
     "author"            :"Your name",
     "type"              :"template",
-    "serviceProvider"   :"fs24\\Providers\\fs24ServiceProvide"
+    "serviceProvider"   :"fs24\\Providers\\fs24ServiceProvide",
+    "version"           :"1.0.0"
+
 }
