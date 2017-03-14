@@ -1,11 +1,11 @@
 <?php
  
-namespace HelloWorld\Providers;
+namespace fs24\Providers;
  
  
 use Plenty\Plugin\ServiceProvider;
  
-class HelloWorldServiceProvider extends ServiceProvider
+class fs24ServiceProvider extends ServiceProvider
 {
  
     /**
@@ -14,7 +14,7 @@ class HelloWorldServiceProvider extends ServiceProvider
  
     public function register()
     {
-        $this->getApplication()->register(HelloWorldRouteServiceProvider::class);
+        $this->getApplication()->register(fs24RouteServiceProvider::class);
     }
 }
 

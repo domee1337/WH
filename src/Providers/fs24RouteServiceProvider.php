@@ -1,16 +1,16 @@
 <?php
  
-namespace HelloWorld\Providers;
+namespace fs24\Providers;
  
  
 use Plenty\Plugin\RouteServiceProvider;
 use Plenty\Plugin\Routing\Router;
  
-class HelloWorldRouteServiceProvider extends RouteServiceProvider
+class fs24RouteServiceProvider extends RouteServiceProvider
 {
     public function map(Router $router)
     {
-        $router->get('hello','HelloWorld\Controllers\ContentController@sayHello');
+        $router->get('hello','fs24\Controllers\ContentController@sayHello');
     }
 }
 

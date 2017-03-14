@@ -4,5 +4,5 @@
     "namespace"         :"fs24",
     "author"            :"Your name",
     "type"              :"template",
-    "serviceProvider"   :"HelloWorld\\Providers\\HelloWorldServiceProvide"
+    "serviceProvider"   :"fs24\\Providers\\fs24ServiceProvide"
 }
