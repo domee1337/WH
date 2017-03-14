@@ -1,8 +1,8 @@
 {
     "name"              :"fs24",
-    "description"       :"My first plugin",
+    "description"       :"test plugin",
     "namespace"         :"fs24",
-    "author"            :"Your name",
+    "author"            :"Dominik Jödecke",
     "type"              :"template",
     "serviceProvider"   :"fs24\\Providers\\fs24ServiceProvide",
     "version"           :"beta"
