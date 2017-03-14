@@ -1,0 +1,8 @@
+{
+    "name"              :"fs24",
+    "description"       :"My first plugin",
+    "namespace"         :"fs24",
+    "author"            :"Your name",
+    "type"              :"template",
+    "serviceProvider"   :"HelloWorld\\Providers\\HelloWorldServiceProvide"
+}
