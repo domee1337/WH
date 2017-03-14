@@ -10,7 +10,7 @@ class fs24RouteServiceProvider extends RouteServiceProvider
 {
     public function map(Router $router)
     {
-        $router->get('hello','fs24\Controllers\ContentController@sayHello');
+        $router->get('123','fs24\Controllers\ContentController@sayHello');
     }
 }
 
