@@ -3,7 +3,7 @@
     "description"       :"test plugin",
     "namespace"         :"fs24",
     "author"            :"Dominik Jödecke",
-    "type"              :"template",
+    "type"              :"backend",
     "serviceProvider"   :"fs24\\Providers\\fs24ServiceProvide",
     "version"           :"beta"
 
