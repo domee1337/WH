@@ -41,6 +41,11 @@ class ContentController extends Controller
    * @param StockRepositoryContract       $stockRepo
    * @return string
    */
+   public function render_start(Twig $twig): string
+   {
+     $templateData['ContactId'] = $this->getCurrentContactId;
+     return $twig->render('ToDoList::content.start', $templateData);
+   }
     public function findStock(int $id, StockRepositoryContract $stockRepo): string
     {
       $result = $stockRepo->listStockByWarehouseId($id, array(), 1, 30);
