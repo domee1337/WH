@@ -19,4 +19,9 @@ class ContentController extends Controller
       $result = $stockRepo->listStockByWarehouseId($id, array(), 1, 30);
       return json_decode($result);
     }
+
+    public function bookStock(Request $request, StockRepositoryContract $stockRepo): string
+    {
+
+    }
 }
