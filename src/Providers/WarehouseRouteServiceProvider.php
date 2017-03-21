@@ -13,9 +13,18 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider
     public function map(Router $router)
     {
 
-        $router->get('warehouse/{id}', 'Warehouse\Controllers\ContentController@findStock')->where('id', '\d+');
-        $router->post('warehouse/bookStock', 'ToDoList\Controllers\ContentController@bookStock');
-        /*
+        /**
+        * GET Routing
+        */
+        $router->get('warehouse/{id}',                      'Warehouse\Controllers\ContentController@findStock')->where('id', '\d+');
+        $router->get('warehouse/stockByVariation/{id}',     'Warehouse\Controllers\ContentController@stockByVariation')->where('id', '\d+');
+        /**
+        * POST Routing
+        */
+        $router->post('warehouse/bookStock',                'Warehouse\Controllers\ContentController@bookStock');
+        $router->post('warehouse/correctStock',             'Warehouse\Controllers\ContentController@correctStock');
+
+        /*listStockStorageLocationsByVariationId
         $router->put('todo/{id}', 'ToDoList\Controllers\ContentController@updateToDo')->where('id', '\d+');
         $router->delete('todo/{id}', 'ToDoList\Controllers\ContentController@deleteToDo')->where('id', '\d+');*/
     }
