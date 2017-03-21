@@ -36,16 +36,36 @@ class ContentController extends Controller
     {
         return $this->accountService->getAccountContactId();
     }
-  /**
-   * @param int                           $id
-   * @param StockRepositoryContract       $stockRepo
-   * @return string
-   */
-   public function render_start(Twig $twig): string
-   {
-     $templateData['ContactId'] = $this->getCurrentContactId;
-     return $twig->render('ToDoList::content.start', $templateData);
-   }
+    /**
+    * RENDER TWIG TEMPLATES ROUTING
+    */
+    public function render_start(Twig $twig): string
+    {
+       $templateData['ContactId'] = $this->getCurrentContactId;
+       return $twig->render('Warehouse::content.start', $templateData);
+    }
+    public function render_incoming(Twig $twig): string
+    {
+       $templateData['ContactId'] = $this->getCurrentContactId;
+       return $twig->render('Warehouse::content.incoming', $templateData);
+    }
+    public function render_transfer(Twig $twig): string
+    {
+       $templateData['ContactId'] = $this->getCurrentContactId;
+       return $twig->render('Warehouse::content.transfer', $templateData);
+    }
+    public function render_inventur(Twig $twig): string
+    {
+       $templateData['ContactId'] = $this->getCurrentContactId;
+       return $twig->render('Warehouse::content.inventur', $templateData);
+    }
+
+
+    /**
+     * @param int                           $id
+     * @param StockRepositoryContract       $stockRepo
+     * @return string
+     */
     public function findStock(int $id, StockRepositoryContract $stockRepo): string
     {
       $result = $stockRepo->listStockByWarehouseId($id, array(), 1, 30);
