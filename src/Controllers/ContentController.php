@@ -5,8 +5,7 @@ namespace Warehouse\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Plugin\Templates\Twig;
-use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
-use Plenty\Modules\Frontend\Services\AccountService;
+//use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
 
 /**
  * Class ContentController
@@ -14,28 +13,6 @@ use Plenty\Modules\Frontend\Services\AccountService;
  */
 class ContentController extends Controller
 {
-    /**
-     * @var AccountService
-     */
-    private $accountService;
-
-    /**
-     * UserSession constructor.
-     * @param AccountService $accountService
-     */
-    public function __construct(AccountService $accountService)
-    {
-        $this->accountService = $accountService;
-    }
-
-    /**
-     * Get the current contact ID
-     * @return int
-     */
-    public function getCurrentContactId(): int
-    {
-        return $this->accountService->getAccountContactId();
-    }
     /**
     * RENDER TWIG TEMPLATES ROUTING
     */
@@ -68,8 +45,6 @@ class ContentController extends Controller
      */
     public function findStock(int $id, StockRepositoryContract $stockRepo): string
     {
-      $result = $stockRepo->listStockByWarehouseId($id, array(), 1, 30);
-      return json_decode($result);
     }
     /**
      * @param int                           $id
