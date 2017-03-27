@@ -16,8 +16,8 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider
         /**
         * GET Routing CALLS
         */
-        $router->get('warehouse/calls/findStock/{id}',            'Warehouse\Controllers\ContentController@findStock')->where('id', '\d+');
-        $router->get('warehouse/calls/stockByVariation/{id}',     'Warehouse\Controllers\ContentController@stockByVariation')->where('id', '\d+');
+        //$router->get('warehouse/calls/findStock/{id}',            'Warehouse\Controllers\ContentController@findStock')->where('id', '\d+');
+        //$router->get('warehouse/calls/stockByVariation/{id}',     'Warehouse\Controllers\ContentController@stockByVariation')->where('id', '\d+');
 
         /**
         * GET Routing Templates
@@ -30,8 +30,8 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider
         /**
         * POST Routing
         */
-        $router->post('warehouse/calls/bookStock',                'Warehouse\Controllers\ContentController@bookStock');
-        $router->post('warehouse/calls/correctStock',             'Warehouse\Controllers\ContentController@correctStock');
+        //$router->post('warehouse/calls/bookStock',                'Warehouse\Controllers\ContentController@bookStock');
+        //$router->post('warehouse/calls/correctStock',             'Warehouse\Controllers\ContentController@correctStock');
 
         /*listStockStorageLocationsByVariationId
         $router->put('todo/{id}', 'ToDoList\Controllers\ContentController@updateToDo')->where('id', '\d+');
