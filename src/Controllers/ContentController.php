@@ -6,6 +6,7 @@ use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Plugin\Templates\Twig;
 //use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
+use Plenty\Modules\StockManagement\Warehouse\Contracts\WarehouseRepositoryContract;
 
 /**
  * Class ContentController
@@ -32,7 +33,11 @@ class ContentController extends Controller
     {
        return $twig->render('Warehouse::content.inventur');
     }
-
+    public function listWarehouses(WarehouseRepositoryContract $whRepo)
+    {
+      $result = $whRepo->all();
+      return json_decode($result);
+    }
 
     /**
      * @param int                           $id
@@ -41,6 +46,8 @@ class ContentController extends Controller
      */
     public function findStock(int $id, StockRepositoryContract $stockRepo)
     {
+      $result = $stockRepo->listStockByWarehouseId($id, array(), 1, 30);
+      return json_decode($result);
     }
     /**
      * @param int                           $id
