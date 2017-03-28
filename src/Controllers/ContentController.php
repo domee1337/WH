@@ -18,23 +18,19 @@ class ContentController extends Controller
     */
     public function render_start(Twig $twig): string
     {
-       $templateData['ContactId'] = $this->getCurrentContactId;
-       return $twig->render('Warehouse::content.start', $templateData);
+       return $twig->render('Warehouse::content.start');
     }
     public function render_incoming(Twig $twig): string
     {
-       $templateData['ContactId'] = $this->getCurrentContactId;
-       return $twig->render('Warehouse::content.incoming', $templateData);
+       return $twig->render('Warehouse::content.incoming');
     }
     public function render_transfer(Twig $twig): string
     {
-       $templateData['ContactId'] = $this->getCurrentContactId;
-       return $twig->render('Warehouse::content.transfer', $templateData);
+       return $twig->render('Warehouse::content.transfer');
     }
     public function render_inventur(Twig $twig): string
     {
-       $templateData['ContactId'] = $this->getCurrentContactId;
-       return $twig->render('Warehouse::content.inventur', $templateData);
+       return $twig->render('Warehouse::content.inventur');
     }
 
 
