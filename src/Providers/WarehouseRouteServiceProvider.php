@@ -22,6 +22,7 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider
         /**
         * GET Routing Templates
         */
+        
         $router->get('warehouse',                       'Warehouse\Controllers\ContentController@render_start');
         $router->get('warehouse/start-page',            'Warehouse\Controllers\ContentController@render_start');
         $router->get('warehouse/incoming',              'Warehouse\Controllers\ContentController@render_incoming');
