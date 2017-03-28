@@ -2,13 +2,12 @@ function returnWarehouses()
 {
   $.ajax({
         type: "GET",
-        url: "/calls/warehouses",
+        url: "calls/warehouses",
         success: function(data)
         {
-            var data = jQuery.parseJSON( data );
             $.each(data, function(){
               $('#wh').append(
-                '<p>'+this.name1+'</p>'
+                '<input type="checkbox" class="warehousecheckbox" whid="'+this.id+'" ><p>'+this.name+'</p>'
               );
             });
         },
