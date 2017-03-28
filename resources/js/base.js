@@ -7,7 +7,9 @@ function returnWarehouses()
         {
             $.each(data, function(){
               $('#wh').append(
-                '<input type="checkbox" class="warehousecheckbox" whid="'+this.id+'" ><p>'+this.name+'</p>'
+                '<label>'+
+                '   <input type="checkbox" class="warehousecheckbox" whid="'+this.id+'" >'+this.name+
+                '</label>'
               );
             });
         },
