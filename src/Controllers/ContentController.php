@@ -16,19 +16,19 @@ class ContentController extends Controller
     /**
     * RENDER TWIG TEMPLATES ROUTING
     */
-    public function render_start(Twig $twig): string
+    public function render_start(Twig $twig):string
     {
        return $twig->render('Warehouse::content.start');
     }
-    public function render_incoming(Twig $twig): string
+    public function render_incoming(Twig $twig):string
     {
        return $twig->render('Warehouse::content.incoming');
     }
-    public function render_transfer(Twig $twig): string
+    public function render_transfer(Twig $twig):string
     {
        return $twig->render('Warehouse::content.transfer');
     }
-    public function render_inventur(Twig $twig): string
+    public function render_inventur(Twig $twig):string
     {
        return $twig->render('Warehouse::content.inventur');
     }
@@ -39,7 +39,7 @@ class ContentController extends Controller
      * @param StockRepositoryContract       $stockRepo
      * @return string
      */
-    public function findStock(int $id, StockRepositoryContract $stockRepo): string
+    public function findStock(int $id, StockRepositoryContract $stockRepo):string
     {
     }
     /**
@@ -47,7 +47,7 @@ class ContentController extends Controller
      * @param StockRepositoryContract       $stockRepo
      * @return string
      */
-    public function stockByVariation(int $id, StockRepositoryContract $stockRepo): string
+    public function stockByVariation(int $id, StockRepositoryContract $stockRepo):string
     {
 
     }
@@ -57,7 +57,7 @@ class ContentController extends Controller
      * @param StockRepositoryContract       $stockRepo
      * @return string
      */
-    public function bookStock(Request $request, StockRepositoryContract $stockRepo): string
+    public function bookStock(Request $request, StockRepositoryContract $stockRepo):string
     {
 
     }
