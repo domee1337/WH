@@ -19,19 +19,19 @@ class ContentController extends Controller
     */
     public function render_start(Twig $twig)
     {
-       return $twig->render('Warehouse::content.start', $this->listWarehouses());
+       return $twig->render('Warehouse::content.start');
     }
     public function render_incoming(Twig $twig)
     {
-       return $twig->render('Warehouse::content.incoming', $this->listWarehouses());
+       return $twig->render('Warehouse::content.incoming');
     }
     public function render_transfer(Twig $twig)
     {
-       return $twig->render('Warehouse::content.transfer', $this->listWarehouses());
+       return $twig->render('Warehouse::content.transfer');
     }
     public function render_inventur(Twig $twig)
     {
-       return $twig->render('Warehouse::content.inventur', $this->listWarehouses());
+       return $twig->render('Warehouse::content.inventur');
     }
     public function listWarehouses(WarehouseRepositoryContract $whRepo)
     {
