@@ -17,25 +17,33 @@ class ContentController extends Controller
     /**
     * RENDER TWIG TEMPLATES ROUTING
     */
-    public function render_start(Twig $twig)
+    public function render_start(Twig $twig, WarehouseRepositoryContract $whRepo)
     {
-       return $twig->render('Warehouse::content.start');
+      $result = $whRepo->all();
+      $templateData = array('warehouses' => $result);
+      return $twig->render('Warehouse::content.start', $templateData);
     }
-    public function render_incoming(Twig $twig)
+    public function render_incoming(Twig $twig, WarehouseRepositoryContract $whRepo)
     {
-       return $twig->render('Warehouse::content.incoming');
+      $result = $whRepo->all();
+      $templateData = array('warehouses' => $result);
+      return $twig->render('Warehouse::content.incoming', $templateData);
     }
-    public function render_transfer(Twig $twig)
+    public function render_transfer(Twig $twig, WarehouseRepositoryContract $whRepo)
     {
-       return $twig->render('Warehouse::content.transfer');
+      $result = $whRepo->all();
+      $templateData = array('warehouses' => $result);
+      return $twig->render('Warehouse::content.transfer', $templateData);
     }
-    public function render_inventur(Twig $twig)
+    public function render_inventur(Twig $twig, WarehouseRepositoryContract $whRepo)
     {
-       return $twig->render('Warehouse::content.inventur');
+      $result = $whRepo->all();
+      $templateData = array('warehouses' => $result);
+      return $twig->render('Warehouse::content.inventur', $templateData);
     }
     public function listWarehouses(WarehouseRepositoryContract $whRepo)
     {
-      $result = $whRepo->all();
+
       return json_decode($result);
     }
 

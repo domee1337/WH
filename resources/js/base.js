@@ -9,13 +9,13 @@ function returnWarehouses()
               $('#wh').append(
                 '<label>'+
                 '   <input type="checkbox" class="warehousecheckbox" whid="'+this.id+'" >'+this.name+
-                '</label>'
+                '&nbsp;</label>'
               );
             });
         },
         error: function(data)
         {
-            alert("returnWarehouses ERROR");
+            alert("returnWarehouses ERROR"+data);
         }
     });
 }
