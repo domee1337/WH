@@ -91,8 +91,10 @@ class ContentController extends Controller
 
     public function searchByBarcode(Twig $twig, VariationLookupRepositoryContract $varRepo)
     {
-      $result = $varRepo->hasBarcode("4260177462537");
+      $varRepo->hasBarcode("4260177462537");
+      $result = $varRepo->lookup();
       $templateData = array('test' => $result);
+      return json_encode($templateData);
       return $twig->render('Warehouse::content.test', $templateData);
 
     }
