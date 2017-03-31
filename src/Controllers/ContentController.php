@@ -93,7 +93,7 @@ class ContentController extends Controller
     {
       $varRepo->hasBarcode("4260177462537");
       $result = $varRepo->lookup();
-      return json_encode($request);
+      return json_encode($request->all());
 
     }
 }
