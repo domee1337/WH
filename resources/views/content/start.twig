@@ -6,6 +6,8 @@
 <div class="container">
   <h1>Start</h1>
   {% for warehouse in warehouses %}
-    <p>{{ warehouse.id }} Name : {{ warehouse.name }}</p>
+    <label>
+      <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" >{{ warehouse.name }}
+    &nbsp;</label>
   {% endfor %}
 </div>
