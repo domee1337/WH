@@ -5,9 +5,17 @@
 <!-- -->
 <div class="container">
   <h1>Start</h1>
-  {% for warehouse in warehouses %}
-    <label>
-      <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" >{{ warehouse.name }}
-    &nbsp;</label>
-  {% endfor %}
+  <!-- Warehouses[0] START -->
+  <div class="warehouses">
+    {% if warehouses is not null %}
+      {% for warehouse in warehouses %}
+        <label>
+          <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" > {{ warehouse.name }}
+        &nbsp;</label>
+      {% endfor %}
+    {% else %}
+      <p>Bitte legen Sie ein Lager an</p>
+    {% endif %}
+  </div>
+  <!-- Warehouses[0] END -->
 </div>
