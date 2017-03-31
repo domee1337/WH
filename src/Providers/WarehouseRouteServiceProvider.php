@@ -30,6 +30,8 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider
         $router->get('warehouse/transfer',              'Warehouse\Controllers\ContentController@render_transfer');
         $router->get('warehouse/inventur',              'Warehouse\Controllers\ContentController@render_inventur');
 
+        $router->get('warehouse/test',              'Warehouse\Controllers\ContentController@searchByBarcode');
+
         /**
         * POST Routing
         */
