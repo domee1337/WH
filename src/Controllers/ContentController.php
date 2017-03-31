@@ -91,11 +91,10 @@ class ContentController extends Controller
 
     public function searchByBarcode(Request $request, VariationLookupRepositoryContract $varRepo)
     {
-      $varRepo->hasBarcode("4260177462537");
-      $result = $varRepo->lookup();
       $rs = $request->all();
-
-      return json_encode($rs);
+      $varRepo->hasBarcode($rs['barcode']);
+      $result = $varRepo->lookup();
+      return json_encode($result);
 
     }
 }
