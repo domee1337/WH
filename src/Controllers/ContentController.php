@@ -7,6 +7,7 @@ use Plenty\Plugin\Http\Request;
 use Plenty\Plugin\Templates\Twig;
 //use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
 use Plenty\Modules\StockManagement\Warehouse\Contracts\WarehouseRepositoryContract;
+use Plenty\Modules\Item\Variation\Contracts\VariationLookupRepositoryContract;
 
 /**
  * Class ContentController
@@ -85,6 +86,14 @@ class ContentController extends Controller
      */
     public function correctStock(Request $request, StockRepositoryContract $stockrepo)
     {
+
+    }
+
+    public function searchByBarcode(Twig $twig, VariationLookupRepositoryContract $varRepo)
+    {
+      $result = $varRepo->hasBarcode("4260177462537");
+      $templateData = array('test' => $result);
+      return $twig->render('Warehouse::content.test', $templateData);
 
     }
 }
