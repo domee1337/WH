@@ -104,7 +104,7 @@ class ContentController extends Controller
         $var = $result->variationId;
         //$resultx = $varRepoCo->findById($var);
         $return['valid'] = true;
-        $return['variant'] = $var;
+        $return['variant'] = $result;
       }
       return json_encode($return);
 
