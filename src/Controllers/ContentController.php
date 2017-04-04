@@ -104,12 +104,12 @@ class ContentController extends Controller
         foreach($result as $item)
         {
           $resultx = $varRepoCo->findById($item['variationId']);
-          $return['variants'][] = $resultx;
+          $return['variants'] = $resultx;
         }
         $return['valid'] = true;
 
       }
-      return json_encode($result);
+      return json_encode($return);
 
     }
 }
