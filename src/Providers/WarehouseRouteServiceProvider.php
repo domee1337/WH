@@ -19,6 +19,7 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider
         $router->get('warehouse/calls/findStock/{id}',            'Warehouse\Controllers\ContentController@findStock')->where('id', '\d+');
         $router->get('warehouse/calls/stockByVariation/{id}',     'Warehouse\Controllers\ContentController@stockByVariation')->where('id', '\d+');
         $router->get('warehouse/calls/warehouses',                'Warehouse\Controllers\ContentController@listWarehouses');
+        $router->get('warehouse/calls/findVariant',                  'Warehouse\Controllers\ContentController@searchByBarcode');
 
         /**
         * GET Routing Templates
