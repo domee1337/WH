@@ -1,17 +1,18 @@
-function returnWarehouses()
+function findVariant(barcode)
 {
   $.ajax({
         type: "GET",
-        url: "calls/warehouses",
+        url: "calls/findVariant",
+        data: {barcode: barcode},
         success: function(data)
         {
-            $.each(data, function(){
-              $('#wh').append(
-                '<label>'+
-                '   <input type="checkbox" class="warehousecheckbox" whid="'+this.id+'" >'+this.name+
-                '&nbsp;</label>'
-              );
-            });
+            if(data.valid)
+            {
+              $('#output').html("<p>Artikel "+data.number+" wurde gefunden.</p>");
+            }
+            else {
+              $('#output').html("<p>Es wurde keine Artikel gefunden.</p>");
+            }
         },
         error: function(data)
         {

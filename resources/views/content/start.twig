@@ -13,6 +13,7 @@
           <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" > {{ warehouse.name }}
         &nbsp;</label>
       {% endfor %}
+      <div id="output"></div>
     {% else %}
       <p>Bitte legen Sie ein Lager an</p>
     {% endif %}

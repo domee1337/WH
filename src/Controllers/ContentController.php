@@ -109,7 +109,7 @@ class ContentController extends Controller
         $return['valid'] = true;
 
       }
-      return json_encode($return);
+      return json_encode($result);
 
     }
 }
