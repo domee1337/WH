@@ -109,6 +109,7 @@ class ContentController extends Controller
         $return['valid'] = true;
 
       }
+      $return['s'] = $_SESSION;
       return json_encode($return);
 
     }
