@@ -8,7 +8,7 @@ class WarehouseServiceProvider extends ServiceProvider
 {
     public function register()
     {
-      $this->getApplication()->register(WarehouseRouteServiceProvider::class);
+      //$this->getApplication()->register(WarehouseRouteServiceProvider::class);
     }
 
 }
