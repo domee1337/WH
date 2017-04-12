@@ -90,7 +90,7 @@ class ContentController extends Controller
 
     }
 
-    public function searchByBarcode(Request $request, VariationLookupRepositoryContract $varRepo, VariationRepositoryContract $varRepoCo)
+    public function findArticle(Request $request, VariationLookupRepositoryContract $varRepo, VariationRepositoryContract $varRepoCo)
     {
       $rs = $request->all();
       $varRepo->hasBarcode($rs['barcode']);
@@ -109,7 +109,6 @@ class ContentController extends Controller
         $return['valid'] = true;
 
       }
-      $return['s'] = $_SESSION;
       return json_encode($return);
 
     }

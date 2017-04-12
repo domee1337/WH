@@ -25,15 +25,15 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider
         * GET Routing Templates
         */
 
-        $router->get('warehouse',                       'Warehouse\Controllers\ContentController@render_start')->addMiddleware(['oauth']);
-        $router->get('warehouse/start-page',            'Warehouse\Controllers\ContentController@render_start')->addMiddleware(['oauth']);
-        $router->get('warehouse/incoming',              'Warehouse\Controllers\ContentController@render_incoming')->addMiddleware(['oauth']);
-        $router->get('warehouse/transfer',              'Warehouse\Controllers\ContentController@render_transfer')->addMiddleware(['oauth']);
-        $router->get('warehouse/inventur',              'Warehouse\Controllers\ContentController@render_inventur')->addMiddleware(['oauth']);
+        $router->get('warehouse',                       'Warehouse\Controllers\ContentController@render_start');
+        $router->get('warehouse/start-page',            'Warehouse\Controllers\ContentController@render_start');
+        $router->get('warehouse/incoming',              'Warehouse\Controllers\ContentController@render_incoming');
+        $router->get('warehouse/transfer',              'Warehouse\Controllers\ContentController@render_transfer');
+        $router->get('warehouse/inventur',              'Warehouse\Controllers\ContentController@render_inventur');
         /**
         * TEST ROUTING
         */
-        $router->post('warehouse/test',                 'Warehouse\Controllers\ContentController@searchByBarcode');
+        $router->post('warehouse/findArticle',                 'Warehouse\Controllers\ContentController@searchByBarcode');
         $router->get('warehouse/test',                  'Warehouse\Controllers\ContentController@searchByBarcode');
 
         /**
