@@ -12,9 +12,10 @@
       {% for warehouse in warehouses %}
         <label>
           <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" > {{ warehouse.name }}
-          <input type="text" class="form-control findArticle" placeholder="EAN">
+
         &nbsp;</label>
       {% endfor %}
+      <input type="text" class="form-control findArticle" placeholder="EAN">
       <div id="output"></div>
     {% else %}
       <p>Bitte legen Sie ein Lager an</p>
