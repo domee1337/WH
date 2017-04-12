@@ -3,6 +3,6 @@
     "description": "Warehouse",
     "namespace": "Warehouse",
     "author": "Pascal Herrewyn GmbH",
-    "type": "template",
+    "type": "backend",
     "serviceProvider": "Warehouse\\Providers\\WarehouseServiceProvider"
 }
