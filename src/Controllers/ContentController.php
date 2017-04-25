@@ -45,8 +45,8 @@ class ContentController extends Controller
     }
     public function listWarehouses(WarehouseRepositoryContract $whRepo)
     {
-      $result = $whRepo->all();
-      return $result;
+      $resultx = $whRepo->all();
+      return $resultx;
     }
 
     /**
