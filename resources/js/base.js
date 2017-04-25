@@ -2,7 +2,7 @@ function findVariant(barcode)
 {
   $.ajax({
         type: "GET",
-        url: "calls/findVariant",
+        url: "calls/findArticle",
         data: {barcode: barcode},
         success: function(data)
         {

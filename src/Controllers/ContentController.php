@@ -5,7 +5,7 @@ namespace Warehouse\Controllers;
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
 use Plenty\Plugin\Templates\Twig;
-//use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
+use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
 use Plenty\Modules\StockManagement\Warehouse\Contracts\WarehouseRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationLookupRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
@@ -45,7 +45,7 @@ class ContentController extends Controller
     }
     public function listWarehouses(WarehouseRepositoryContract $whRepo)
     {
-
+      $result = $whRepo->all();
       return json_decode($result);
     }
 
@@ -56,8 +56,7 @@ class ContentController extends Controller
      */
     public function findStock(int $id, StockRepositoryContract $stockRepo)
     {
-      $result = $stockRepo->listStockByWarehouseId($id, array(), 1, 30);
-      return json_decode($result);
+
     }
     /**
      * @param int                           $id
