@@ -95,7 +95,6 @@ class ContentController extends Controller
 
       $varRepo->hasBarcode($rs['barcode']);
       $result = $varRepo->lookup();
-      echo json_encode($result);
       if(empty($result))
       {
         $return['valid'] = false;
