@@ -1,11 +1,12 @@
 .output{
-  font-size: 28px;
-  text-align: center;
+
 }
 
 .find-true{
   color: white;
   background-color: green;
+  font-size: 28px;
+  text-align: center;
 }
 
 .find-false{
@@ -13,4 +14,6 @@
   padding-top: 80%;
   padding-bottom: 80%;
   background-color: red;
+  font-size: 28px;
+  text-align: center;
 }
