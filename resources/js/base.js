@@ -25,3 +25,17 @@ function findVariant(barcode)
         }
     });
 }
+
+function checkaccess()
+{
+  var access = localStorage.getItem("accessToken");
+  if(access === undefined)
+  {
+    alert("Bitte melden Sie sich an!");
+    window.location = "/plenty/ui";
+  }
+}
+
+$(document).ready(function(){
+  checkaccess();
+});
