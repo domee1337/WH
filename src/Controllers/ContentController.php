@@ -92,6 +92,7 @@ class ContentController extends Controller
     public function findArticle(Request $request, VariationLookupRepositoryContract $varRepo, VariationRepositoryContract $varRepoCo)
     {
       $rs = $request->all();
+      /*
       $varRepo->hasBarcode($rs['barcode']);
       $result = $varRepo->lookup();
 
@@ -107,8 +108,8 @@ class ContentController extends Controller
         }
         $return['valid'] = true;
 
-      }
-      return json_encode($return);
+      }*/
+      return json_encode($rs);
 
     }
 }

@@ -33,7 +33,7 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider
         /**
         * TEST ROUTING
         */
-        $router->post('warehouse/findArticle',                 'Warehouse\Controllers\ContentController@searchByBarcode');
+        $router->post('warehouse/calls/findArticle',                 'Warehouse\Controllers\ContentController@findArticle');
         $router->get('warehouse/test',                  'Warehouse\Controllers\ContentController@searchByBarcode');
 
         /**
