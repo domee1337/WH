@@ -1,0 +1,9 @@
+[
+  {
+        "tab"       : "Berechtigungen",
+        "key"       : "user.role",
+        "label"     : "ID der Rolle zur Berechtigungen",
+        "type"      : "text",
+        "default"   : "1"
+    }
+]
