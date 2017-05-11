@@ -101,9 +101,9 @@ class ContentController extends Controller
       }
       else {
         foreach($result as $item)
-        {
+        { 
           $resultx = $varRepoCo->findById($item['variationId']);
-          $return['variants'] = $resultx;
+          $return['variants'][] = $resultx;
         }
         $return['valid'] = true;
 
