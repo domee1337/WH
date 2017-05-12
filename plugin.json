@@ -4,5 +4,6 @@
     "namespace": "Warehouse",
     "author": "Pascal Herrewyn GmbH",
     "type": "template",
+    "version": "0.0.1",
     "serviceProvider": "Warehouse\\Providers\\WarehouseServiceProvider"
 }

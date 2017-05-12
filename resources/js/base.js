@@ -29,7 +29,7 @@ function findVariant(barcode)
         },
         error: function(data)
         {
-            alert(data);
+            console.log(data);
         }
     });
 }
@@ -37,8 +37,9 @@ function findVariant(barcode)
 
 function checkaccess()
 {
+  //LOGIN SELBER ERMÖGLICHEN UND DIE ROUTE /rest/authorized_user BEKOMMEN
   var access = localStorage.getItem("accessToken");
-  if(access === undefined)
+  if(access === null)
   {
     alert("Bitte melden Sie sich an!");
     window.location = "/plenty/ui";
