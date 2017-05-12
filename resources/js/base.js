@@ -9,6 +9,7 @@ function findVariant(barcode)
         data: {barcode: barcode},
         success: function(data)
         {
+            $('#output').html("");
             if(data.totalsCount == 0)
             {
               $('#output').html("<p class='find-false'>Es wurde keine Artikel gefunden.</p>");
