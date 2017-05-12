@@ -1,5 +1,8 @@
+var variationId;
+
 function findVariant(barcode)
 {
+  $('#load').show();
   $.ajax({
         type: "GET",
         url: "/rest/items/variations",
@@ -9,28 +12,36 @@ function findVariant(barcode)
         data: {barcode: barcode},
         success: function(data)
         {
+            variationId = 0;
+            var items = 0;
+            var used;
             $('#output').html("");
             if(data.totalsCount == 0)
             {
               $('#output').html("<p class='find-false'>Es wurde keine Artikel gefunden.</p>");
             }
-            else if(data.totalCount == 1)
+            else
             {
               //Wenn nur ein Artikel gefunden wurde
               data.entries.forEach( function(variant){
-                $('#output').append("<p class='find-true'>Artikel "+variant.number+" wurde gefunden.</p>");
+                items++;
+                used = variant.id;
+                $('#output').append("<div class='find-true'><p>Artikel <span id='variant_"+variant.id+"' class='number'>"+variant.number+
+                "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn' value='Ok'></div>");
               });
+
+              if(items == 1)
+              {
+                variationId = used;
+                $('.use_variant').remove();
+              }
             }
-            else {
-              //Artikel wurden gefunden
-              data.entries.forEach( function(variant){
-                $('#output').append("<p class='find-true'>Artikel "+variant.number+" wurde gefunden.</p>");
-              });
-            }
+            $('#load').hide();
         },
         error: function(data)
         {
             console.log(data);
+            $('#load').hide();
         }
     });
 }
@@ -49,4 +60,8 @@ function checkaccess()
 
 $(document).ready(function(){
   checkaccess();
+
+  $('.use_variant').click( function(){
+    alert("Hallo");
+  });
 });
