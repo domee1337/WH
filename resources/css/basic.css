@@ -32,9 +32,53 @@
 .number{
   font-weight: 700;
 }
-
+.inline{
+  display: inline-block !important;
+  margin-left: 5px;
+  margin-right: 5px;
+}
 #menge{
   width: 150px;
+}
+/**
+* LOGIN
+*/
+#login{
+  z-index: 990;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: grey;
+  left: 0;
+  top: 0;
+  opacity: .9;
+  text-align: center;
+  padding-top: 200px;
+}
+
+.login{
+  border: 1px solid grey;
+  border-radius: 3px;
+  background-color: white;
+  opacity: 1.1;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login .form-control{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+.login .btn{
+  margin-bottom: 14px;
+}
+
+.login h3{
+  margin-top: 10px;
 }
 /**
 * SPINNER
@@ -46,6 +90,7 @@
   margin-left: 50%;
 }
 #load{
+  z-index: 999;
   position: fixed;
   width: 100%;
   height: 100%;

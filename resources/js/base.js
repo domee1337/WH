@@ -46,16 +46,51 @@ function findVariant(barcode)
     });
 }
 
+function login()
+{
+  $('#load').show();
+  var username = $('#username').val();
+  var password = $('#password').val();
+  $.ajax({
+        type: "POST",
+        url: "/rest/login",
+        data: {username: username, password: password},
+        success: function(data)
+        {
+            localStorage.setItem("accessToken", data.accessToken)
+            $('#login').hide();
+            $('#load').hide();
+        },
+        error: function(data)
+        {
+            alert("Benutername oder Passwort falsch!");
+            $('#username').val("");
+            $('#password').val("");
+            $('#load').hide();
+        }
+    });
+
+
+}
 
 function checkaccess()
 {
+
+  $.ajax({
+        type: "GET",
+        url: "/rest/authorized_user",
+        headers: {
+    			"Authorization": "Bearer "+localStorage.getItem("accessToken")
+    		},
+        error: function(data)
+        {
+          $('#username').val("");
+          $('#password').val("")
+          $('#login').show();
+          $('#username').focus();
+        }
+    });
   //LOGIN SELBER ERMÖGLICHEN UND DIE ROUTE /rest/authorized_user BEKOMMEN
-  var access = localStorage.getItem("accessToken");
-  if(access === null)
-  {
-    alert("Bitte melden Sie sich an!");
-    window.location = "/plenty/ui";
-  }
 }
 
 $(document).ready(function(){
@@ -64,4 +99,11 @@ $(document).ready(function(){
   $('.use_variant').click( function(){
     alert("Hallo");
   });
+
+
+  $('#submit').click( function(){
+    login();
+  });
+
+
 });
