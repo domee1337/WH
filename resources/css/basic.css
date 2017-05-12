@@ -1,13 +1,26 @@
+body{
+  font-size: 20px;
+  background-color: grey;
+}
+
+.container{
+  background-color: white;
+  margin-top: 20px;
+}
+
+.form-control {
+  font-size: 20px !important;
+}
 #output{
   margin-top: 10px !important;
 }
 
 .find-true{
-  color: white;
-  background-color: green;
+  color: black;
+  background-color: orange;
   font-size: 28px;
   text-align: center;
-  margin-top: 1px;
+  margin-top: 3px;
 }
 
 .find-false{
@@ -31,6 +44,7 @@
 
 .number{
   font-weight: 700;
+  color: black;
 }
 .inline{
   display: inline-block !important;

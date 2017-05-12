@@ -105,5 +105,21 @@ $(document).ready(function(){
     login();
   });
 
+  $('#username').bind("keydown", function(e)
+  {
+    if(e.keyCode === 13)
+    {
+      login();
+    }
+  });
+
+  $('#password').bind("keydown", function(e)
+  {
+    if(e.keyCode === 13)
+    {
+      login();
+    }
+  });
+
 
 });
