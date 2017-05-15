@@ -3,6 +3,7 @@ var variationId;
 function findVariant(barcode)
 {
   $('#load').show();
+  $('.findArticle').prop("disabled", true);
   $.ajax({
         type: "GET",
         url: "/rest/items/variations",
@@ -19,6 +20,7 @@ function findVariant(barcode)
             if(data.totalsCount == 0)
             {
               $('#output').html("<p class='find-false'>Es wurde keine Artikel gefunden.</p>");
+              $('.findArticle').removeAttr("disabled");
             }
             else
             {
@@ -26,22 +28,31 @@ function findVariant(barcode)
               data.entries.forEach( function(variant){
                 items++;
                 used = variant.id;
+                number = variant.number;
                 $('#output').append("<div class='find-true'><p>Artikel <span id='variant_"+variant.id+"' class='number'>"+variant.number+
-                "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn' value='Ok'></div>");
+                "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn' value='Ok' onclick='usevariant("+variant.id+");'></div>");
               });
 
               if(items == 1)
               {
                 variationId = used;
+                $('#output').html("<div class='find-true'><p>Artikel <span id='variant_"+used+"' class='number'>"+number+
+                "</span> wurde ausgewählt</p></div>");
+
                 $('.use_variant').remove();
+                $('.locationEan').removeAttr("disabled");
+                menge();
               }
             }
             $('#load').hide();
+
+
         },
         error: function(data)
         {
             console.log(data);
             $('#load').hide();
+            $('.findArticle').removeAttr("disabled");
         }
     });
 }
@@ -73,6 +84,19 @@ function login()
 
 }
 
+function menge()
+{
+  if($("#standart_menge").is(':checked'))
+  {
+    $('.locationEan').removeAttr("disabled");
+    $('.locationEan').select();
+  }
+  else {
+    $('#menge').val("1");
+    $('#menge').select();
+  }
+}
+
 function checkaccess()
 {
 
@@ -93,12 +117,17 @@ function checkaccess()
   //LOGIN SELBER ERMÖGLICHEN UND DIE ROUTE /rest/authorized_user BEKOMMEN
 }
 
+function usevariant(id)
+{
+    var number = $("#variant_"+id).text();
+    $('#output').html("<div class='find-true'>Artikel <span class='number'>"+number+"</span> wurde ausgewählt</div>");
+    variationId = id;
+    menge();
+}
 $(document).ready(function(){
   checkaccess();
 
-  $('.use_variant').click( function(){
-    alert("Hallo");
-  });
+
 
 
   $('#submit').click( function(){
@@ -120,6 +149,13 @@ $(document).ready(function(){
       login();
     }
   });
-
+  $('.back').click( function(){
+    $('#output').html("");
+    $('.locationEan').val("");
+    $('.findArticle').val("");
+    $('.locationEan').prop("disabled", true);
+    $('.findArticle').removeAttr("disabled");
+    $('.findArticle').focus();
+  });
 
 });
