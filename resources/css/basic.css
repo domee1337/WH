@@ -35,6 +35,19 @@ body{
   display: inline-block;
   margin-top: 10px;
 }
+
+.green{
+  color: white;
+  background-color: green;
+  font-size: 28px;
+  text-align: center;
+  margin-top: 3px;
+}
+
+.green p{
+  display: inline-block;
+  margin-top: 10px;
+}
 .use_variant{
   display: inline-block !important;
   float: right;
