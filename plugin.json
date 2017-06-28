@@ -1,8 +1,8 @@
 {
-    "name": "Warehouse",
-    "description": "Warehouse",
-    "namespace": "Warehouse",
-    "author": "Pascal Herrewyn GmbH",
-    "type": "template",
-    "serviceProvider": "Warehouse\\Providers\\WarehouseServiceProvider"
+    "name"              :"WH",
+    "description"       :"Warehouse",
+    "namespace"         :"WH",
+    "author"            :"test",
+    "type"              :"template",
+    "serviceProvider"   :"WH\\Providers\\WarehouseServiceProvider"
 }
