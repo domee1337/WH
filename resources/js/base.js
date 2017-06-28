@@ -67,6 +67,7 @@ function findVariant(barcode)
             }
             else
             {
+              $('.back').removeAttr("disabled");
               //Wenn nur ein Artikel gefunden wurde
               data.entries.forEach( function(variant){
                 items++;
@@ -115,7 +116,7 @@ function login()
 	    checkaccess();
             $('#login').hide();
             $('#load').hide();
-	    
+
         },
         error: function(data)
         {
