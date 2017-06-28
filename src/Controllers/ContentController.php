@@ -1,6 +1,6 @@
 <?php
 
-namespace Warehouse\Controllers;
+namespace WH\Controllers;
 
 use Plenty\Plugin\Controller;
 use Plenty\Plugin\Http\Request;
