@@ -127,6 +127,12 @@ function login()
 
 }
 
+function logout()
+{
+	localStorage.removeItem("accessToken");
+	location.reload();
+}
+
 function menge()
 {
   $('.back').removeAttr("disabled");
