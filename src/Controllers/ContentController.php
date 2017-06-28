@@ -23,25 +23,25 @@ class ContentController extends Controller
     {
       $result = $whRepo->all();
       $templateData = array('warehouses' => $result);
-      return $twig->render('Warehouse::content.start', $templateData);
+      return $twig->render('WH::content.start', $templateData);
     }
     public function render_incoming(Twig $twig, WarehouseRepositoryContract $whRepo)
     {
       $result = $whRepo->all();
       $templateData = array('warehouses' => $result);
-      return $twig->render('Warehouse::content.incoming', $templateData);
+      return $twig->render('WH::content.incoming', $templateData);
     }
     public function render_transfer(Twig $twig, WarehouseRepositoryContract $whRepo)
     {
       $result = $whRepo->all();
       $templateData = array('warehouses' => $result);
-      return $twig->render('Warehouse::content.transfer', $templateData);
+      return $twig->render('WH::content.transfer', $templateData);
     }
     public function render_inventur(Twig $twig, WarehouseRepositoryContract $whRepo)
     {
       $result = $whRepo->all();
       $templateData = array('warehouses' => $result);
-      return $twig->render('Warehouse::content.inventur', $templateData);
+      return $twig->render('WH::content.inventur', $templateData);
     }
     public function listWarehouses(WarehouseRepositoryContract $whRepo)
     {
