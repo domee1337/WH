@@ -153,17 +153,18 @@ function checkaccess()
     		},
         success: function(data)
         {
-            console.log(data);
+            $('#realName').text(data.realName);
+			$('#names').fadeIn(100);
         },
         error: function(data)
         {
+		  $('#names').hide();
           $('#username').val("");
           $('#password').val("")
           $('#login').show();
           $('#username').focus();
         }
     });
-  //LOGIN SELBER ERMÖGLICHEN UND DIE ROUTE /rest/authorized_user BEKOMMEN
 }
 
 function usevariant(id)
