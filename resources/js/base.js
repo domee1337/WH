@@ -114,8 +114,8 @@ function login()
         {
             localStorage.setItem("accessToken", data.accessToken)
 	    checkaccess();
-            $('#login').hide();
-            $('#load').hide();
+            $('#login').fadeOut(250);
+            $('#load').fadeOut(100);
 
         },
         error: function(data)
@@ -123,7 +123,7 @@ function login()
             alert("Benutername oder Passwort falsch!");
             $('#username').val("");
             $('#password').val("");
-            $('#load').hide();
+            $('#load').fadeOut(100);
         }
     });
 
@@ -132,6 +132,7 @@ function login()
 
 function logout()
 {
+  $('#load').fadeIn(100);
 	localStorage.removeItem("accessToken");
 	location.reload();
 }
@@ -170,7 +171,7 @@ function checkaccess()
 		  $('#names').hide();
           $('#username').val("");
           $('#password').val("")
-          $('#login').show();
+          $('#login').fadeIn(250);
           $('#username').focus();
         }
     });
