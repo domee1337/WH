@@ -16,31 +16,31 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider
         /**
         * GET Routing CALLS
         */
-        $router->get('warehouse/calls/findStock/{id}',            'Warehouse\Controllers\ContentController@findStock');
-        $router->get('warehouse/calls/stockByVariation/{id}',     'Warehouse\Controllers\ContentController@stockByVariation');
-        $router->get('warehouse/calls/warehouses',                'Warehouse\Controllers\ContentController@listWarehouses');
-        $router->get('warehouse/calls/findVariant',                  'Warehouse\Controllers\ContentController@searchByBarcode');
+        $router->get('warehouse/calls/findStock/{id}',            'WH\Controllers\ContentController@findStock');
+        $router->get('warehouse/calls/stockByVariation/{id}',     'WH\Controllers\ContentController@stockByVariation');
+        $router->get('warehouse/calls/warehouses',                'WH\Controllers\ContentController@listWarehouses');
+        $router->get('warehouse/calls/findVariant',                  'WH\Controllers\ContentController@searchByBarcode');
 
         /**
         * GET Routing Templates
         */
 
-        $router->get('warehouse',                       'Warehouse\Controllers\ContentController@render_start');
-        $router->get('warehouse/start-page',            'Warehouse\Controllers\ContentController@render_start');
-        $router->get('warehouse/incoming',              'Warehouse\Controllers\ContentController@render_incoming');
-        $router->get('warehouse/transfer',              'Warehouse\Controllers\ContentController@render_transfer');
-        $router->get('warehouse/inventur',              'Warehouse\Controllers\ContentController@render_inventur');
+        $router->get('warehouse',                       'WH\Controllers\ContentController@render_start');
+        $router->get('warehouse/start-page',            'WH\Controllers\ContentController@render_start');
+        $router->get('warehouse/incoming',              'WH\Controllers\ContentController@render_incoming');
+        $router->get('warehouse/transfer',              'WH\Controllers\ContentController@render_transfer');
+        $router->get('warehouse/inventur',              'WH\Controllers\ContentController@render_inventur');
         /**
         * TEST ROUTING
         */
-        $router->get('warehouse/calls/findArticle',                 'Warehouse\Controllers\ContentController@findArticle');
-        $router->get('warehouse/test',                  'Warehouse\Controllers\ContentController@searchByBarcode');
+        $router->get('warehouse/calls/findArticle',                 'WH\Controllers\ContentController@findArticle');
+        $router->get('warehouse/test',                  'WH\Controllers\ContentController@searchByBarcode');
 
         /**
         * POST Routing
         */
-        $router->post('warehouse/calls/bookStock',                'Warehouse\Controllers\ContentController@bookStock');
-        $router->post('warehouse/calls/correctStock',             'Warehouse\Controllers\ContentController@correctStock');
+        $router->post('warehouse/calls/bookStock',                'WH\Controllers\ContentController@bookStock');
+        $router->post('warehouse/calls/correctStock',             'WH\Controllers\ContentController@correctStock');
 
         /*listStockStorageLocationsByVariationId
         $router->put('todo/{id}', 'ToDoList\Controllers\ContentController@updateToDo')->where('id', '\d+');
