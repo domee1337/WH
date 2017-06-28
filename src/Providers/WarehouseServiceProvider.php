@@ -1,6 +1,6 @@
 <?php
 
-namespace Warehouse\Providers;
+namespace WH\Providers;
 
 use Plenty\Plugin\ServiceProvider;
 
