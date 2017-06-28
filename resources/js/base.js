@@ -151,6 +151,10 @@ function checkaccess()
         headers: {
     			"Authorization": "Bearer "+localStorage.getItem("accessToken")
     		},
+        success: function(data)
+        {
+            console.log(data);
+        },
         error: function(data)
         {
           $('#username').val("");
