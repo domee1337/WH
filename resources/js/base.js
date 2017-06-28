@@ -112,8 +112,10 @@ function login()
         success: function(data)
         {
             localStorage.setItem("accessToken", data.accessToken)
+	    checkaccess();
             $('#login').hide();
             $('#load').hide();
+	    
         },
         error: function(data)
         {
