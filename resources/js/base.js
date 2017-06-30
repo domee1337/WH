@@ -62,7 +62,7 @@ function findVariant(barcode)
             $('#output').html("");
             if(data.totalsCount == 0)
             {
-              $('#output').html("<p class='find-false'>Es wurde keine Artikel gefunden.</p>");
+              $('#output').html("<p class='find-false'>Es wurde kein Artikel gefunden.</p>");
               $('.findArticle').removeAttr("disabled");
             }
             else
@@ -94,8 +94,9 @@ function findVariant(barcode)
         },
         error: function(data)
         {
-            console.log(data);
-            $('#load').hide();
+            console.log(data.responseText);
+            var json = $.parseJSON(data.responseText);
+            $('#output').html("<div class='find-false'><p>PlentyMarkets meldet folgenden Fehler: <br/> ErrorCode: "+json.error.code+" <br/> Message: "+json.error.message+"</p></div>");
             $('.findArticle').removeAttr("disabled");
         }
     });
@@ -251,7 +252,9 @@ function einbuchen()
           {
             $('#load').hide();
             console.log(data);
-            alert("EIN UNBEKANNTER FEHLER IST AUFGETRETEN");
+            var json = $.parseJSON(data.responseText);
+            $('#output').html("<div class='find-false'><p>PlentyMarkets meldet folgenden Fehler: <br/> ErrorCode: "+json.error.code+" <br/> Message: "+json.error.message+"</p></div>");
+
           }
       });
   }
@@ -309,5 +312,12 @@ $(document).ready(function(){
     {
       einbuchen();
     }
+  });
+
+  $(document).ajaxStart( function(){
+    $('#load').fadeIn(100);
+    checkaccess();
+  }).ajaxStop( function(){
+    $('#load').fadeOut(100);
   });
 });
