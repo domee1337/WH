@@ -175,7 +175,9 @@ body{
   animation-delay: -0.8s;
 }
 
-
+.head{
+  background-color: #424242;
+}
 
 @-webkit-keyframes sk-stretchdelay {
   0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
