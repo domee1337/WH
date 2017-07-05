@@ -132,8 +132,8 @@ function findPlaces()
 {
   $('#lagerorteoutput').show();
   $('#lagerorteoutput').html("");
-  var locations = 0;
-  var comp = "";
+
+  var comp = 0;
   $.each(warehouses, function(warehouseId, active){
     if(active == "1")
     {
@@ -147,18 +147,24 @@ function findPlaces()
             data: {variationId: variationId},
             success: function(data)
             {
+              var locations = 0;
               var html = "<p style='color: #58D3F7'>Lager: "+$('.whname[whid='+warehouseId+']').text()+"</p><table class='table'><thead><th>LagerortId</th><th>Lagerort</th><th>Menge</th><th>Aktion</th></thead><tbody>";
 
               $.each(data.entries, function(){
                 if(this.quantity > 0)
                 {
                 locations++;
+                comp++;
                 var name = getLocationName(warehouseId, this.storageLocationId);
                 html = html+"<tr><td>"+this.storageLocationId+"</td><td class='place' sid='"+this.storageLocationId+"'>"+name+"</td><td>"+this.quantity+"</td><td>Aktion</td></tr>";
                 }
               });
               html = html+"</tbody></table>";
-              comp = comp+html;
+              if(locations > 0)
+              {
+              $("#lagerorteoutput").append(html);
+              }
+
 
             },
             error: function(data)
@@ -169,13 +175,7 @@ function findPlaces()
 
     }
   });
-  if(locations > 0)
-  {
-  $("#lagerorteoutput").append(comp);
-  }
-  else {
-    $("#lagerorteoutput").html("<div class='find-false'><p>Der Artikel weist von Ihnen ausgewählten Lagern einen positiven Bestand auf.</p></div>");
-  }
+
 }
 function getLocationName(warehouseId, locationId)
 {
