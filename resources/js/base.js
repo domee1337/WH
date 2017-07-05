@@ -343,6 +343,10 @@ $(document).ready(function(){
       });
   });
 
+  $('.menutip').click( function(){
+    window.location = $(this).attr('href');
+  });
+
   //Gets the menu
   $('.menutip[menu='+$('#menu_var').text()+']').removeClass("menutip");
 });
