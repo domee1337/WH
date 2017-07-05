@@ -263,6 +263,7 @@ function einbuchen()
     }
     else {
       alert("Bitte wählen Sie ihr Lager aus!");
+      $('#load').hide();
     }
   }
   else {
