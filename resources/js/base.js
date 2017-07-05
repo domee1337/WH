@@ -342,4 +342,7 @@ $(document).ready(function(){
         warehouses[$(this).attr('whid')] = checked;
       });
   });
+
+  //Gets the menu
+  $('.menutip[menu='+$('#menu_var').text()+']').removeClass("menutip");
 });
