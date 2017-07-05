@@ -132,10 +132,12 @@ function findPlaces()
 {
   $('#lagerorteoutput').show();
   $('#lagerorteoutput').html("");
+  var locations = 0;
+  var comp = "";
   $.each(warehouses, function(warehouseId, active){
     if(active == "1")
     {
-      var locations = 0;
+
       $.ajax({
             type: "GET",
             url: "/rest/stockmanagement/warehouses/"+warehouseId+"/stock/storageLocations",
@@ -156,7 +158,7 @@ function findPlaces()
                 }
               });
               html = html+"</tbody></table>";
-
+              comp = comp+html;
 
             },
             error: function(data)
@@ -164,15 +166,16 @@ function findPlaces()
               console.log(data);
             }
           });
-          if(locations > 0)
-          {
-          $("#lagerorteoutput").append(html);
-          }
-          else {
-            $("#lagerorteoutput").html("<div class='find-false'><p>Der Artikel weist in keinen von Ihnen ausgewählten Lagern einen positiven Bestand auf.</p></div>");
-          }
+
     }
   });
+  if(locations > 0)
+  {
+  $("#lagerorteoutput").append(comp);
+  }
+  else {
+    $("#lagerorteoutput").html("<div class='find-false'><p>Der Artikel weist von Ihnen ausgewählten Lagern einen positiven Bestand auf.</p></div>");
+  }
 }
 function getLocationName(warehouseId, locationId)
 {
@@ -184,13 +187,13 @@ function getLocationName(warehouseId, locationId)
           "Authorization": "Bearer "+localStorage.getItem("accessToken")
         },
         success: function(data){
-          $('.place[sid='+locationId+']').text(data['name']);
+          name = data['name'];
         },
         error: function(){
           console.log(data);
         }
       });
-
+  return name;
 }
 /**
 * Login Funktion über die Rest-Api mit den Plenty-Logindaten
