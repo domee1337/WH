@@ -1,3 +1,7 @@
+/**
+* Prototype für das datum mit W3C-Format
+*/
+
 Date.prototype.toW3CString = function () {
     var year = this.getFullYear();
     var month = this.getMonth();
@@ -40,11 +44,19 @@ Date.prototype.toW3CString = function () {
 };
 
 
-
+/**
+* Globale variablen
+*/
 var variationId;
 var warehouses = new Object();
+
+/**
+* Funktion die einen Artikel über die Rest-Api anhand eines Barcodes sucht und in der div #output ausgibt
+* @param barcode string
+*/
 function findVariant(barcode)
 {
+
   $('#load').show();
   $('.findArticle').prop("disabled", true);
   $.ajax({
@@ -73,8 +85,17 @@ function findVariant(barcode)
                 items++;
                 used = variant.id;
                 number = variant.number;
-                $('#output').append("<div class='find-true'><p>Artikel <span id='variant_"+variant.id+"' class='number'>"+variant.number+
-                "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn' value='Ok' onclick='usevariant("+variant.id+");'></div>");
+                if($('#menu_var').text() == "umbuchen")
+                {
+                  $('#output').append("<div class='find-true'><p>Artikel <span id='variant_"+variant.id+"' class='number'>"+variant.number+
+                  "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn' value='Ok' onclick='usevariant("+variant.id+", true);'></div>");
+
+                }
+                else {
+                  $('#output').append("<div class='find-true'><p>Artikel <span id='variant_"+variant.id+"' class='number'>"+variant.number+
+                  "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn' value='Ok' onclick='usevariant("+variant.id+");'></div>");
+
+                }
               });
 
               if(items == 1)
@@ -85,7 +106,14 @@ function findVariant(barcode)
 
                 $('.use_variant').remove();
                 $('.locationEan').removeAttr("disabled");
-                menge();
+                if($('#menu_var').text() == "umbuchen")
+                {
+                  //Lagerorte besorgen
+                }
+                else {
+                  menge();
+                }
+
               }
             }
             $('#load').hide();
@@ -94,14 +122,78 @@ function findVariant(barcode)
         },
         error: function(data)
         {
-            console.log(data.responseText);
             var json = $.parseJSON(data.responseText);
             $('#output').html("<div class='find-false'><p>PlentyMarkets meldet folgenden Fehler: <br/> ErrorCode: "+json.error.code+" <br/> Message: "+json.error.message+"</p></div>");
             $('.findArticle').removeAttr("disabled");
         }
     });
 }
+function findPlaces()
+{
+  $('#lagerorteoutput').html("");
+  $.each(warehouses, function(warehouseId, active){
+    if(active == "1")
+    {
+      $.ajax({
+            type: "GET",
+            url: "/rest/stockmanagement/warehouses/"+warehouseId+"/stock/storageLocations",
+            headers: {
+        			"Authorization": "Bearer "+localStorage.getItem("accessToken")
+        		},
+            data: {variationId: variationId},
+            success: function(data)
+            {
+              var html = "<hr></hr><table class='table'><thead><th>LagerortId</th><th>Lagerort</th><th>Menge</th><th>Aktion</th></thead><tbody>";
+              var locations = 0;
+              $.each(data.entries, function(){
+                if(this.quantity > 0)
+                {
+                locations++;
+                var name = getLocationName(warehouseId, this.storageLocationId);
+                html = html+"<tr><td>"+this.storageLocationId+"</td><td>"+name+"</td><td>"+this.quantity+"</td><td>Aktion</td></tr>";
+                }
+              });
+              html = html+"</tbody></table>";
+              if(locations > 0)
+              {
+              $("#lagerorteoutput").append(html);
+              }
+              else {
+                $("#lagerorteoutput").html("<div class='find-false'><p>Der Artikel weist in keinen von Ihnen ausgewählten Lagern einen positiven Bestand auf.</p></div>");
+              }
 
+            },
+            error: function(data)
+            {
+              console.log(data);
+            }
+          });
+    }
+  });
+}
+function getLocationName(warehouseId, locationId)
+{
+  var name;
+  console.log(warehouseId+locationId);
+  $.ajax({
+        type: "GET",
+        url: "/rest/stockmanagement/warehouses/"+warehouseId+"/management/storageLocations/"+locationId,
+        headers: {
+          "Authorization": "Bearer "+localStorage.getItem("accessToken")
+        },
+        success: function(data){
+          return data['name'];
+
+        },
+        error: function(){
+          console.log(data);
+        }
+      });
+
+}
+/**
+* Login Funktion über die Rest-Api mit den Plenty-Logindaten
+*/
 function login()
 {
   $('#load').show();
@@ -131,13 +223,18 @@ function login()
 
 }
 
+/**
+* Funktion zum logout, derzeit wird nur das LocalStorage geleert, evtl. Logout über die Rest-Api
+*/
 function logout()
 {
   $('#load').fadeIn(100);
 	localStorage.removeItem("accessToken");
 	location.reload();
 }
-
+/**
+* Funktion die bestimmt ob die standardisierte menge aktiviert ist
+*/
 function menge()
 {
   $('.back').removeAttr("disabled");
@@ -152,7 +249,9 @@ function menge()
     $('#menge').select();
   }
 }
-
+/**
+* Funktion die prüft ob der accessToken im LocalStorage gültig ist, wenn nicht erscheint die Login-Maske
+*/
 function checkaccess()
 {
 
@@ -177,15 +276,26 @@ function checkaccess()
         }
     });
 }
-
-function usevariant(id)
+/**
+* Funktion die einen Artikel "benutzt" beim button "Ok" wenn mehrere Artikel gefunden wurden
+*/
+function usevariant(id, umbuchen = false)
 {
     var number = $("#variant_"+id).text();
     $('#output').html("<div class='find-true'>Artikel <span class='number'>"+number+"</span> wurde ausgewählt</div>");
     variationId = id;
-    menge();
-}
+    if(umbuchen)
+    {
+      //Lagerorte besorgen
+    }
+    else {
+      menge();
+    }
 
+}
+/**
+* Funktion die, die Ware beim erfolgreichen scannen über die Rest-Api einbucht
+*/
 function einbuchen()
 {
   $('#load').show();
@@ -212,19 +322,14 @@ function einbuchen()
     var lager = xx[0];
     if(warehouses[lager] == "1")
     {
-    //TODO die Lager checkboxen beachten
     var location = xx[1];
-    console.log(lager);
-    console.log(location);
     var qty = $('#menge').val();
     var date = new Date();
     date = date.toW3CString();
-    console.log(date);
     //date = "2017-05-15T03:30:29-04:00";
     var url = "/rest/stockmanagement/warehouses/"+
             lager+"/stock/bookIncomingItems";
 
-    console.log(url);
     $.ajax({
           type: "PUT",
           url: url,
@@ -253,7 +358,6 @@ function einbuchen()
           error: function(data)
           {
             $('#load').hide();
-            console.log(data);
             var json = $.parseJSON(data.responseText);
             $('#output').html("<div class='find-false'><p>PlentyMarkets meldet folgenden Fehler: <br/> ErrorCode: "+json.error.code+" <br/> Message: "+json.error.message+"</p></div>");
 
@@ -273,16 +377,24 @@ function einbuchen()
     $('.locationEan').select();
   }
 }
+
+/**
+* Wenn das dokument ready ist
+*/
 $(document).ready(function(){
   checkaccess();
 
 
 
-
+  /**
+  * Button "login" -> funktion login();
+  */
   $('#submit').click( function(){
     login();
   });
-
+  /**
+  * Input "username" bei enter -> funktion login();
+  */
   $('#username').bind("keydown", function(e)
   {
     if(e.keyCode === 13)
@@ -290,7 +402,9 @@ $(document).ready(function(){
       login();
     }
   });
-
+  /**
+  * Input "password" bei enter -> funktion login();
+  */
   $('#password').bind("keydown", function(e)
   {
     if(e.keyCode === 13)
@@ -298,14 +412,25 @@ $(document).ready(function(){
       login();
     }
   });
-
+  /**
+  * Wenn ein Ajax-Request gestartet wird
+  * 1. Ladebalken wird eingeblentet
+  * 2. accessToken wird geprüft
+  */
   $(document).ajaxStart( function(){
     $('#load').fadeIn(100);
     checkaccess();
+  /**
+  * Wenn ein Ajax-Request beendet wird
+  * Ladebalken wird ausgeblentet
+  */
   }).ajaxStop( function(){
     $('#load').fadeOut(100);
   });
 
+  /**
+  * Wenn ein Lager ausgewählt wird
+  */
   $('.warehousecheckbox').change( function(){
 
       $('.warehousecheckbox').each( function(){
