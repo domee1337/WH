@@ -150,7 +150,7 @@ function findPlaces()
                 {
                 locations++;
                 var name = getLocationName(warehouseId, this.storageLocationId);
-                html = html+"<tr><td>"+this.storageLocationId+"</td><td>"+name+"</td><td>"+this.quantity+"</td><td>Aktion</td></tr>";
+                html = html+"<tr><td>"+this.storageLocationId+"</td><td class='place' sid='"+this.storageLocationId+"'>"+name+"</td><td>"+this.quantity+"</td><td>Aktion</td></tr>";
                 }
               });
               html = html+"</tbody></table>";
@@ -174,7 +174,6 @@ function findPlaces()
 function getLocationName(warehouseId, locationId)
 {
   var name;
-  console.log(warehouseId+locationId);
   $.ajax({
         type: "GET",
         url: "/rest/stockmanagement/warehouses/"+warehouseId+"/management/storageLocations/"+locationId,
@@ -182,8 +181,7 @@ function getLocationName(warehouseId, locationId)
           "Authorization": "Bearer "+localStorage.getItem("accessToken")
         },
         success: function(data){
-          return data['name'];
-
+          $('.place[sid='+locationId+']').text(data['name']);
         },
         error: function(){
           console.log(data);

@@ -15,5 +15,13 @@ $(document).ready( function(){
       $('.locationEan').focus();
     }
   });
-
+  $('.back').click( function(){
+    $(this).prop("disabled", true);
+    $('.output').html("");
+    $('.locationEan').val("");
+    $('.findArticle').val("");
+    $('.locationEan').prop("disabled", true);
+    $('.findArticle').removeAttr("disabled");
+    $('.findArticle').focus();
+  });
 });
