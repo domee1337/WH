@@ -108,7 +108,7 @@ function findVariant(barcode)
                 $('.locationEan').removeAttr("disabled");
                 if($('#menu_var').text() == "umbuchen")
                 {
-                  //Lagerorte besorgen
+                  findPlaces();
                 }
                 else {
                   menge();
@@ -286,7 +286,7 @@ function usevariant(id, umbuchen = false)
     variationId = id;
     if(umbuchen)
     {
-      //Lagerorte besorgen
+      findPlaces();
     }
     else {
       menge();
