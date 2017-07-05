@@ -25,11 +25,8 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider
         * GET Routing Templates
         */
         $router->get('storage',                         'WH\Controllers\ContentController@render_start');
-        $router->get('warehouse',                       'WH\Controllers\ContentController@render_start');
-        $router->get('warehouse/start-page',            'WH\Controllers\ContentController@render_start');
-        $router->get('warehouse/incoming',              'WH\Controllers\ContentController@render_incoming');
-        $router->get('warehouse/transfer',              'WH\Controllers\ContentController@render_transfer');
-        $router->get('warehouse/inventur',              'WH\Controllers\ContentController@render_inventur');
+        $router->get('storage/transfer',              'WH\Controllers\ContentController@render_transfer');
+        $router->get('storage/inventur',              'WH\Controllers\ContentController@render_inventur');
         /**
         * TEST ROUTING
         */
