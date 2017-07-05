@@ -145,7 +145,7 @@ function findPlaces()
             data: {variationId: variationId},
             success: function(data)
             {
-              var html = "Lager: "+$('.whname[whid='+warehouseId+']').text()+" <table class='table'><thead><th>LagerortId</th><th>Lagerort</th><th>Menge</th><th>Aktion</th></thead><tbody>";
+              var html = "<p style='color: #58D3F7'>Lager: "+$('.whname[whid='+warehouseId+']').text()+"</p><table class='table'><thead><th>LagerortId</th><th>Lagerort</th><th>Menge</th><th>Aktion</th></thead><tbody>";
 
               $.each(data.entries, function(){
                 if(this.quantity > 0)
