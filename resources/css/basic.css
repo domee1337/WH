@@ -197,4 +197,6 @@ body{
 
 .menutip:hover{
   opacity: 1;
+  cursor: pointer;
+  color: #819FF7;
 }
