@@ -42,7 +42,7 @@ Date.prototype.toW3CString = function () {
 
 
 var variationId;
-
+var warehouses = new Object();
 function findVariant(barcode)
 {
   $('#load').show();
@@ -319,5 +319,18 @@ $(document).ready(function(){
     checkaccess();
   }).ajaxStop( function(){
     $('#load').fadeOut(100);
+  });
+
+  $('.warehousecheckbox').change( function(){
+
+      $('.warehousecheckbox').each( function(){
+        var checked = 0;
+        if($(this)is(":checked"))
+        {
+          checked = 1;
+        }
+        warehouses[$(this).attr('whid')] = new Object();
+        warehouses[$(this).attr('whid')] = checked;
+      });
   });
 });
