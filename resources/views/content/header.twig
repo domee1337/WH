@@ -49,7 +49,7 @@
       {% for warehouse in warehouses %}
 
 
-          <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" > {{ warehouse.name }}
+          <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" > <span whid="{{ warehouse.id }}" class="whname">{{ warehouse.name }}</span>
           &nbsp;
       {% endfor %}
     {% else %}
