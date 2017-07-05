@@ -325,7 +325,7 @@ $(document).ready(function(){
 
       $('.warehousecheckbox').each( function(){
         var checked = 0;
-        if($(this)is(":checked"))
+        if($(this).is(":checked"))
         {
           checked = 1;
         }
