@@ -210,6 +210,8 @@ function einbuchen()
   if(error === 0)
   {
     var lager = xx[0];
+    if(warehouses[lager] == "1")
+    {
     //TODO die Lager checkboxen beachten
     var location = xx[1];
     console.log(lager);
@@ -257,6 +259,11 @@ function einbuchen()
 
           }
       });
+
+    }
+    else {
+      alert("Bitte wählen Sie ihr Lager aus!");
+    }
   }
   else {
     $('#output').html("<div class='find-false'><p>Bitte überprüfen Sie Ihre eingabe!</p></div>");
