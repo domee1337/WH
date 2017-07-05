@@ -47,11 +47,10 @@
   <div class="warehouses">
     {% if warehouses is not null %}
       {% for warehouse in warehouses %}
-      <!--
-        <label>
-          <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" > {{ warehouse.name }}
 
-        &nbsp;</label>-->
+
+          <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" > {{ warehouse.name }}
+          &nbsp;
       {% endfor %}
       <input type="text" class="form-control findArticle" placeholder="EAN">
       <input type="button" class="btn back" value="Zurück" disabled>
