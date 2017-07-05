@@ -135,6 +135,7 @@ function findPlaces()
   $.each(warehouses, function(warehouseId, active){
     if(active == "1")
     {
+      var locations = 0;
       $.ajax({
             type: "GET",
             url: "/rest/stockmanagement/warehouses/"+warehouseId+"/stock/storageLocations",
@@ -145,7 +146,7 @@ function findPlaces()
             success: function(data)
             {
               var html = "Lager: "+$('.whname[whid='+warehouseId+']').text()+" <table class='table'><thead><th>LagerortId</th><th>Lagerort</th><th>Menge</th><th>Aktion</th></thead><tbody>";
-              var locations = 0;
+
               $.each(data.entries, function(){
                 if(this.quantity > 0)
                 {
@@ -155,13 +156,7 @@ function findPlaces()
                 }
               });
               html = html+"</tbody></table>";
-              if(locations > 0)
-              {
-              $("#lagerorteoutput").append(html);
-              }
-              else {
-                $("#lagerorteoutput").html("<div class='find-false'><p>Der Artikel weist in keinen von Ihnen ausgewählten Lagern einen positiven Bestand auf.</p></div>");
-              }
+
 
             },
             error: function(data)
@@ -169,6 +164,13 @@ function findPlaces()
               console.log(data);
             }
           });
+          if(locations > 0)
+          {
+          $("#lagerorteoutput").append(html);
+          }
+          else {
+            $("#lagerorteoutput").html("<div class='find-false'><p>Der Artikel weist in keinen von Ihnen ausgewählten Lagern einen positiven Bestand auf.</p></div>");
+          }
     }
   });
 }
