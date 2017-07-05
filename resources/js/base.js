@@ -262,8 +262,9 @@ function einbuchen()
 
     }
     else {
-      alert("Bitte wählen Sie ihr Lager aus!");
+      alert("Das von Ihnen gewählte Lager wurde nicht gefunden oder Sie haben es nicht ausgewählt!");
       $('#load').hide();
+      $('.locationEan').select();
     }
   }
   else {

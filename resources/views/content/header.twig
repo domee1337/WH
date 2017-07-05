@@ -1,0 +1,59 @@
+<head>
+  <title>Storage24</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="{{ plugin_path('WH') }}/js/base.js"></script>
+<script src="{{ plugin_path('WH') }}/js/start.js"></script>
+<link rel="stylesheet" href="{{ plugin_path('WH') }}/css/basic.css">
+
+<!-- SPINNER START -->
+<div id='load' style='display: none;'>
+  <div class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+  </div>
+
+</div>
+<!-- SPINNER END -->
+
+<!-- LOGIN FORM START -->
+<div id='login' style='display: none;'>
+  <div class="login">
+    <h3>Login</h3>
+    <br />
+    <input type="text" placeholder="Benutzername" id="username" class="form-control">
+    <input type="password" placeholder="Passwort" id="password" class="form-control">
+    <input type="button" class="btn btn-primary" value="Anmelden" id="submit">
+    <br />
+  </div>
+</div>
+<!-- LOGIN FORM END -->
+
+<div class="container" style="border: 1px solid #D8D8D8">
+  <div class="head">
+    <img src="{{ plugin_path('WH') }}/css/STORAGE.png" width="200" style="margin-top: 5px;"> </img>
+    <p style="text-align: right; display: none;" id="names">Willkommen <span id="realName"></span> (<a id="logout" href="#" onclick="logout();">Abmelden</a>)</p>
+    <hr>
+  </div>
+
+  <h1 style="padding-top: 20px; padding-bottom: 20px; display: inline-block;">Einbuchen</h1>&nbsp;
+  <h1 style="padding-top: 20px; padding-bottom: 20px; display: inline-block;" class="menutip">Umbuchen</h1>
+  <!-- Warehouses[0] START -->
+  <div class="warehouses">
+    {% if warehouses is not null %}
+      {% for warehouse in warehouses %}
+
+
+          <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" > {{ warehouse.name }}
+          &nbsp;
+      {% endfor %}
+    {% else %}
+        <p>Bitte legen Sie ein Lager an</p>
+      {% endif %}
+  </div>
+  <!-- Warehouses[0] END -->
