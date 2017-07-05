@@ -130,6 +130,7 @@ function findVariant(barcode)
 }
 function findPlaces()
 {
+  $('#lagerorteoutput').show();
   $('#lagerorteoutput').html("");
   $.each(warehouses, function(warehouseId, active){
     if(active == "1")
