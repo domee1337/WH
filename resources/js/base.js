@@ -163,7 +163,7 @@ function findPlaces()
                 locationnames[this.storageLocationId] = warehouseId;
 
                 var name =
-                html = html+"<tr><td>"+this.storageLocationId+"</td><td class='place' sid='"+this.storageLocationId+"'></td><td>"+this.quantity+"</td><td><input type='button' value='Umbuchen' class='btn umbuchenbutton' sid='"+this.storageLocationId+"' wid='"+warehouseId+"' wname='"+$('.whname[whid='+warehouseId+']').text()+"' qty='"+this.quantity+"'></td></tr>";
+                html = html+"<tr><td>"+this.storageLocationId+"</td><td class='place' sid='"+this.storageLocationId+"'></td><td>"+this.quantity+"</td><td><input type='button' value='Umbuchen' class='btn umbuchenbutton' sid='"+this.storageLocationId+"' wid='"+warehouseId+"' wname='"+$('.whname[whid='+warehouseId+']').text()+"' qty='"+this.quantity+"' onclick='umbuchenbutton();'></td></tr>";
                 }
               });
               html = html+"</tbody></table>";
