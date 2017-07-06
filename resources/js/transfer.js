@@ -1,21 +1,27 @@
-function umbuchenbutton()
+function umbuchenbutton(id)
 {
     $("#lagerorteoutput").hide();
     $('#selectedoutput').show();
-    var warehouseId = $(this).attr('wid');
+    var warehouseId = $("#umbuchen_"+id).attr('wid');
     usedwarehouse = warehouseId;
-    var warehousename = $(this).attr('wname');
-    var locationId = $(this).attr('sid');
+    var warehousename = $("#umbuchen_"+id).attr('wname');
+    var locationId = $("#umbuchen_"+id).attr('sid');
     usedlocation = locationId;
     var locationname = $('.place[sid='+locationId+']').text();
-    var quantity = $(this).attr('qty');
+    var quantity = $("#umbuchen_"+id).attr('qty');
     var html = "<p>Ausgewählter Datensatz: </p><table class='table'><th>Lager</th><th>Lagerort</th><th>Menge</th>"+
       "<tr><td>"+warehousename+"</td>"+
       "<td>"+locationname+"</td>"+
-      "<td>"+quantity+"</td></table><input type='button' class='umbuchenzurueck btn' value='Zurück'>";
+      "<td>"+quantity+"</td></table><input type='button' class='umbuchenzurueck btn' value='Zurück' onclick='umbuchenzurueck();'>";
     $('#selectedoutput').html(html);
     menge();
 
+}
+
+function umbuchenzurueck()
+{
+  $("#lagerorteoutput").show();
+  $('#selectedoutput').hide();
 }
 
 $(document).ready( function(){
