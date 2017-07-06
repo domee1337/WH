@@ -49,7 +49,8 @@ Date.prototype.toW3CString = function () {
 */
 var variationId;
 var warehouses = new Object();
-
+var usedwarehouse;
+var usedlocation;
 /**
 * Funktion die einen Artikel über die Rest-Api anhand eines Barcodes sucht und in der div #output ausgibt
 * @param barcode string
@@ -134,11 +135,14 @@ function findPlaces()
   $('#lagerorteoutput').html("");
 
   var comp = 0;
+  var warehousesc = 0;
+  var locationnames = new Object();
   $.each(warehouses, function(warehouseId, active){
     if(active == "1")
     {
-
+      warehousesc++;
       $.ajax({
+            async: false,
             type: "GET",
             url: "/rest/stockmanagement/warehouses/"+warehouseId+"/stock/storageLocations",
             headers: {
@@ -148,21 +152,28 @@ function findPlaces()
             success: function(data)
             {
               var locations = 0;
-              var html = "<p style='color: #58D3F7'>Lager: "+$('.whname[whid='+warehouseId+']').text()+"</p><table class='table'><thead><th>LagerortId</th><th>Lagerort</th><th>Menge</th><th>Aktion</th></thead><tbody>";
+              var html = "<p style='color: black; background-color: #D8D8D8; border-radius: 3px; width: auto;'>Lager: "+$('.whname[whid='+warehouseId+']').text()+"</p><table class='table'><thead><th>LagerortId</th><th>Lagerort</th><th>Menge</th><th>Aktion</th></thead><tbody>";
 
               $.each(data.entries, function(){
                 if(this.quantity > 0)
                 {
-                locations++;
-                comp++;
-                var name = getLocationName(warehouseId, this.storageLocationId);
-                html = html+"<tr><td>"+this.storageLocationId+"</td><td class='place' sid='"+this.storageLocationId+"'>"+name+"</td><td>"+this.quantity+"</td><td>Aktion</td></tr>";
+                locations = locations + 1;
+                comp = comp + 1;
+                locationnames[this.storageLocationId] = new Object();
+                locationnames[this.storageLocationId] = warehouseId;
+
+                var name =
+                html = html+"<tr><td>"+this.storageLocationId+"</td><td class='place' sid='"+this.storageLocationId+"'></td><td>"+this.quantity+"</td><td><input type='button' value='Umbuchen' class='btn umbuchenbutton' sid='"+this.storageLocationId+"' wid='"+warehouseId+"' wname='"+$('.whname[whid='+warehouseId+']').text()+"' qty='"+this.quantity+"'></td></tr>";
                 }
               });
               html = html+"</tbody></table>";
               if(locations > 0)
               {
               $("#lagerorteoutput").append(html);
+              getLocationName(locationnames);
+              }
+              else {
+                $("#lagerorteoutput").append("<div class='find-false'><p>Für das Lager <b>"+$('.whname[whid='+warehouseId+']').text()+"</b> wurde kein Eintrag gefunden</p></div>");
               }
 
 
@@ -176,10 +187,16 @@ function findPlaces()
     }
   });
 
+  if(warehousesc == 0)
+  {
+    $("#lagerorteoutput").html("<div class='find-false'><p>Bitte wählen Sie ein Lager aus.</p></div>");
+  }
+  console.log(comp);
 }
-function getLocationName(warehouseId, locationId)
+function getLocationName(locationames)
 {
-  var name;
+  $.each(locationames, function(locationId, warehouseId)
+  {
   $.ajax({
         type: "GET",
         url: "/rest/stockmanagement/warehouses/"+warehouseId+"/management/storageLocations/"+locationId,
@@ -187,13 +204,14 @@ function getLocationName(warehouseId, locationId)
           "Authorization": "Bearer "+localStorage.getItem("accessToken")
         },
         success: function(data){
-          name = data['name'];
+          $('.place[sid='+locationId+']').text(data['name']);
         },
-        error: function(){
+        error: function(data){
           console.log(data);
         }
       });
-  return name;
+  });
+
 }
 /**
 * Login Funktion über die Rest-Api mit den Plenty-Logindaten
