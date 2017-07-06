@@ -25,10 +25,6 @@ function umbuchenzurueck()
   $('#lagerortean').prop("disabled", true);
 }
 
-function umbuchen()
-{
-  console.log(usedwarehouse+"@"+usedlocation);
-}
 $(document).ready( function(){
 
   $('.findArticle').bind("keydown", function(e)
