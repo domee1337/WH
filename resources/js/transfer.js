@@ -22,8 +22,13 @@ function umbuchenzurueck()
 {
   $("#lagerorteoutput").show();
   $('#selectedoutput').hide();
+  $('#lagerortean').prop("disabled", true);
 }
 
+function umbuchen()
+{
+  console.log(usedwarehouse+"@"+usedlocation);
+}
 $(document).ready( function(){
 
   $('.findArticle').bind("keydown", function(e)
@@ -49,6 +54,14 @@ $(document).ready( function(){
     $('.locationEan').prop("disabled", true);
     $('.findArticle').removeAttr("disabled");
     $('.findArticle').focus();
+  });
+
+  $('.locationEan').bind("keydown", function(e)
+  {
+    if(e.keyCode === 13)
+    {
+      umbuchen();
+    }
   });
 
 
