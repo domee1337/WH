@@ -398,6 +398,90 @@ function einbuchen()
   }
 }
 
+function umbuchen()
+{
+  $('#load').show();
+  var locationean = $('.locationEan').val();
+  var x = locationean.split("L");
+  var error = 0;
+  if (typeof x[1] != 'undefined')
+  {
+    var xx = x[1].split("S");
+  }
+  else {
+    var x = locationean.split("l");
+    if (typeof x[1] != 'undefined')
+    {
+      var xx = x[1].split("s");
+    }
+    else {
+      error = 1;
+    }
+  }
+
+  if(error === 0)
+  {
+    var lager = xx[0];
+    if(warehouses[lager] == "1")
+    {
+    var location = xx[1];
+    var qty = $('#menge').val();
+    var date = new Date();
+    date = date.toW3CString();
+    //date = "2017-05-15T03:30:29-04:00";
+    var url = "/rest/stockmanagement/stock/redistribute";
+
+    $.ajax({
+          type: "PUT",
+          url: url,
+          headers: {
+      			"Authorization": "Bearer "+localStorage.getItem("accessToken")
+      		},
+          data: { redistributions: [
+            {
+                variationId: variationId,
+                reasonId: 401,
+                quantity: qty,
+                currentStorageLocationId: usedlocation,
+                currentWarehouseId: usedwarehouse,
+                newWarehouseId: lager,
+                newStorageLocationId: location,
+            }
+          ]},
+          success: function(data)
+          {
+            $('#load').hide();
+            $('#output').html("<div class='green'><p>Artikel wurde erfolgreich umgebucht</p></div>");
+            $('.output').hide();
+            $('#output').show();
+            $('.locationEan').prop("disabled", true);
+            $('.locationEan').val("");
+            $('.findArticle').removeAttr("disabled");
+            $('.findArticle').select();
+          },
+          error: function(data)
+          {
+            $('#load').hide();
+            var json = $.parseJSON(data.responseText);
+            $('#output').html("<div class='find-false'><p>PlentyMarkets meldet folgenden Fehler: <br/> ErrorCode: "+json.error.code+" <br/> Message: "+json.error.message+"</p></div>");
+
+          }
+      });
+
+    }
+    else {
+      alert("Das von Ihnen gewählte Lager wurde nicht gefunden oder Sie haben es nicht ausgewählt!");
+      $('#load').hide();
+      $('.locationEan').select();
+    }
+  }
+  else {
+    $('#output').html("<div class='find-false'><p>Bitte überprüfen Sie Ihre eingabe!</p></div>");
+    $('#load').hide();
+    $('.locationEan').select();
+  }
+}
+
 /**
 * Wenn das dokument ready ist
 */
