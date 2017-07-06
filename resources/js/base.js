@@ -195,6 +195,8 @@ function getLocationName(locationames)
 {
   $.each(locationames, function(locationId, warehouseId)
   {
+    if(locationId > 0)
+    {
   $.ajax({
         type: "GET",
         url: "/rest/stockmanagement/warehouses/"+warehouseId+"/management/storageLocations/"+locationId,
@@ -208,6 +210,10 @@ function getLocationName(locationames)
           console.log(data);
         }
       });
+    }
+    else {
+      $('.place[sid='+locationId+']').text("Standard-Lagerort");
+    }
   });
 
 }
