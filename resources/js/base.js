@@ -560,7 +560,10 @@ $(document).ready(function(){
 
       if($('.findarticle').is(":disabled") && $('#menu_var').text() == "umbuchen")
       {
-        findPlaces();
+        $('#load').show();
+        setTimeout( function(){
+          findPlaces();
+        }, 20);
       }
   });
 
