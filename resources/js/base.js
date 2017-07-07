@@ -438,8 +438,6 @@ function umbuchen()
   if(error === 0)
   {
     var lager = xx[0];
-    if(warehouses[lager] == "1")
-    {
     var location = xx[1];
     var qty = $('#menge').val();
     var date = new Date();
@@ -485,11 +483,7 @@ function umbuchen()
       });
 
     }
-    else {
-      alert("Das von Ihnen gewählte Lager wurde nicht gefunden oder Sie haben es nicht ausgewählt!");
-      $('#load').hide();
-      $('.locationEan').select();
-    }
+
   }
   else {
     $('#output').html("<div class='find-false'><p>Bitte überprüfen Sie Ihre eingabe!</p></div>");
