@@ -1,5 +1,7 @@
 /**
 * Prototype für das datum mit W3C-Format
+* Wichtig für den Wareneingang!
+* Evtl. TO-DO wenn Plenty die Server-Zeit selber setzen würde
 */
 
 Date.prototype.toW3CString = function () {
@@ -126,9 +128,14 @@ function findVariant(barcode)
             var json = $.parseJSON(data.responseText);
             $('#output').html("<div class='find-false'><p>PlentyMarkets meldet folgenden Fehler: <br/> ErrorCode: "+json.error.code+" <br/> Message: "+json.error.message+"</p></div>");
             $('.findArticle').removeAttr("disabled");
+            $('.findArticle').select();
         }
     });
 }
+/**
+* Funktion die, die Lagerorte eines Artikels findet
+* beachtet werden die LagerCheckboxen
+*/
 function findPlaces()
 {
   $('#load').show();
@@ -193,6 +200,12 @@ function findPlaces()
   }
 
 }
+
+/**
+* Funktion die, die Lagerortnamen ermittelt
+* TO-DO: leider ist dies zurzeit nur möglich über einen Extra-Call der Rest-Api, d.h. es ist nicht sonderlich performant
+* @param array
+*/
 function getLocationName(locationames)
 {
   $('#load').show();
@@ -242,6 +255,13 @@ function login()
 	    checkaccess();
             $('#login').fadeOut(250);
             $('#load').fadeOut(100);
+
+            setTimeout( function(){
+            if(!$('.findArticle').is(":disabled"))
+            {
+              $('.findArticle').select();
+            }
+          }, 300);
 
         },
         error: function(data)
@@ -413,7 +433,9 @@ function einbuchen()
     $('.locationEan').select();
   }
 }
-
+/**
+* Funktion die, den ausgewählten Datensatz auf einen neuen über die Rest-Api umbucht
+*/
 function umbuchen()
 {
   $('#load').show();
@@ -566,11 +588,15 @@ $(document).ready(function(){
         }, 20);
       }
   });
-
+  /**
+  * Menubuttons z.b. Einbuchen oder Umbuchen
+  */
   $('.menutip').click( function(){
     window.location = $(this).attr('href');
   });
 
-  //Gets the menu
+  /**
+  * Definiert Menu/Tab
+  */
   $('.menutip[menu='+$('#menu_var').text()+']').removeClass("menutip");
 });
