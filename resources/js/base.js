@@ -89,12 +89,12 @@ function findVariant(barcode)
                 if($('#menu_var').text() == "umbuchen")
                 {
                   $('#output').append("<div class='find-true'><p>Artikel <span id='variant_"+variant.id+"' class='number'>"+variant.number+
-                  "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn' value='Ok' onclick='usevariant("+variant.id+", true);'></div>");
+                  "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn'  onclick='usevariant("+variant.id+", true);'><i class='material-icons'>done</i></input></div>");
 
                 }
                 else {
                   $('#output').append("<div class='find-true'><p>Artikel <span id='variant_"+variant.id+"' class='number'>"+variant.number+
-                  "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn' value='Ok' onclick='usevariant("+variant.id+");'></div>");
+                  "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn' onclick='usevariant("+variant.id+");'><i class='material-icons'>done</i></input></div>");
 
                 }
               });
