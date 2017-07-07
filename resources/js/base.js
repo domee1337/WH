@@ -189,8 +189,9 @@ function findPlaces()
   if(warehousesc == 0)
   {
     $("#lagerorteoutput").html("<div class='find-false'><p>Bitte wählen Sie ein Lager aus.</p></div>");
+    $('#load').hide();
   }
-  console.log(comp);
+
 }
 function getLocationName(locationames)
 {
@@ -557,10 +558,16 @@ $(document).ready(function(){
         if($(this).is(":checked"))
         {
           checked = 1;
+
         }
         warehouses[$(this).attr('whid')] = new Object();
         warehouses[$(this).attr('whid')] = checked;
       });
+
+      if($('.findarticle').is(":disabled") && $('#menu_var').text() == "umbuchen")
+      {
+        findPlaces();
+      }
   });
 
   $('.menutip').click( function(){
