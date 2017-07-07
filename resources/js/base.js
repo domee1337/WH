@@ -142,7 +142,7 @@ function findPlaces()
   $('#load').show();
   $('#lagerorteoutput').show();
   $('#lagerorteoutput').html("");
-
+  $('#selectedoutput').hide();
   var comp = 0;
   var warehousesc = 0;
   var locationnames = new Object();
