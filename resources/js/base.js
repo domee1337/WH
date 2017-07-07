@@ -89,12 +89,12 @@ function findVariant(barcode)
                 if($('#menu_var').text() == "umbuchen")
                 {
                   $('#output').append("<div class='find-true'><p>Artikel <span id='variant_"+variant.id+"' class='number'>"+variant.number+
-                  "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn'  onclick='usevariant("+variant.id+", true);'><i class='material-icons'>done</i></input></div>");
+                  "</span> wurde gefunden. </p><span variant='"+variant.id+"' class='use_variant btn'  onclick='usevariant("+variant.id+", true);'><i class='material-icons'>done</i></span></div>");
 
                 }
                 else {
                   $('#output').append("<div class='find-true'><p>Artikel <span id='variant_"+variant.id+"' class='number'>"+variant.number+
-                  "</span> wurde gefunden. </p><input type='button' variant='"+variant.id+"' class='use_variant btn' onclick='usevariant("+variant.id+");'><i class='material-icons'>done</i></input></div>");
+                  "</span> wurde gefunden. </p><span variant='"+variant.id+"' class='use_variant btn' onclick='usevariant("+variant.id+");'><i class='material-icons'>done</i></span></div>");
 
                 }
               });
@@ -153,7 +153,7 @@ function findPlaces()
             success: function(data)
             {
               var locations = 0;
-              var html = "<p style='color: black; background-color: #D8D8D8; border-radius: 3px; width: auto;'>Lager: "+$('.whname[whid='+warehouseId+']').text()+"</p><table class='table'><thead><th>LagerortId</th><th>Lagerort</th><th>Menge</th><th>Aktion</th></thead><tbody>";
+              var html = "<p style='color: white; text-align: center; background-color: #008EBD; width: auto;'>Lager: "+$('.whname[whid='+warehouseId+']').text()+"</p><table class='table'><thead><th>LagerortId</th><th>Lagerort</th><th>Menge</th><th>Aktion</th></thead><tbody>";
 
               $.each(data.entries, function(){
                 if(this.quantity > 0)
@@ -162,7 +162,7 @@ function findPlaces()
                 comp = comp + 1;
                 locationnames[this.storageLocationId] = new Object();
                 locationnames[this.storageLocationId] = warehouseId;
-                html = html+"<tr><td>"+this.storageLocationId+"</td><td class='place' sid='"+this.storageLocationId+"'></td><td>"+this.quantity+"</td><td><input type='button' value='Umbuchen' id='umbuchen_"+this.storageLocationId+"' class='btn umbuchenbutton' sid='"+this.storageLocationId+"' wid='"+warehouseId+"' wname='"+$('.whname[whid='+warehouseId+']').text()+"' qty='"+this.quantity+"' onclick='umbuchenbutton("+this.storageLocationId+");'></td></tr>";
+                html = html+"<tr><td>"+this.storageLocationId+"</td><td class='place' sid='"+this.storageLocationId+"'></td><td>"+this.quantity+"</td><td><span value='Umbuchen' id='umbuchen_"+this.storageLocationId+"' class='btn umbuchenbutton' sid='"+this.storageLocationId+"' wid='"+warehouseId+"' wname='"+$('.whname[whid='+warehouseId+']').text()+"' qty='"+this.quantity+"' onclick='umbuchenbutton("+this.storageLocationId+");'><i class='material-icons'>done</i></span></td></tr>";
                 }
               });
               html = html+"</tbody></table>";
