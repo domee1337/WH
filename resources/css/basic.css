@@ -200,3 +200,9 @@ body{
   cursor: pointer;
   color: #819FF7;
 }
+label:hover{
+  cursor: pointer;
+}
+input[type=checkbox]:hover{
+  cursor: pointer;
+}
