@@ -581,7 +581,7 @@ $(document).ready(function(){
         warehouses[$(this).attr('whid')] = checked;
       });
 
-      if($('.findarticle').is(":disabled") && $('#menu_var').text() == "umbuchen")
+      if($('.findarticle').is(":disabled") && $('#menu_var').text() == "umbuchen" && $('.locationean').is(":disabled") === false)
       {
         $('#load').show();
         setTimeout( function(){
