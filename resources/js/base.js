@@ -79,6 +79,7 @@ function findVariant(barcode)
             {
               $('#output').html("<p class='find-false'>Es wurde kein Artikel gefunden.</p>");
               $('.findArticle').removeAttr("disabled");
+              $('.findArticle').select();
             }
             else
             {
