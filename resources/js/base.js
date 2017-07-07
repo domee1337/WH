@@ -131,6 +131,7 @@ function findVariant(barcode)
 }
 function findPlaces()
 {
+  $('#load').show();
   $('#lagerorteoutput').show();
   $('#lagerorteoutput').html("");
 
@@ -193,23 +194,28 @@ function findPlaces()
 }
 function getLocationName(locationames)
 {
+  $('#load').show();
   $.each(locationames, function(locationId, warehouseId)
   {
+
     if(locationId > 0)
     {
-  $.ajax({
-        type: "GET",
-        url: "/rest/stockmanagement/warehouses/"+warehouseId+"/management/storageLocations/"+locationId,
-        headers: {
-          "Authorization": "Bearer "+localStorage.getItem("accessToken")
-        },
-        success: function(data){
-          $('.place[sid='+locationId+']').text(data['name']);
-        },
-        error: function(data){
-          console.log(data);
-        }
-      });
+      $('#load').show();
+      setTimeout(function(){
+        $.ajax({
+              type: "GET",
+              url: "/rest/stockmanagement/warehouses/"+warehouseId+"/management/storageLocations/"+locationId,
+              headers: {
+                "Authorization": "Bearer "+localStorage.getItem("accessToken")
+              },
+              success: function(data){
+                $('.place[sid='+locationId+']').text(data['name']);
+              },
+              error: function(data){
+                console.log(data);
+              }
+            });
+        }, 5);
     }
     else {
       $('.place[sid='+locationId+']').text("Standard-Lagerort");
@@ -307,12 +313,15 @@ function checkaccess()
 */
 function usevariant(id, umbuchen = false)
 {
+
     var number = $("#variant_"+id).text();
     $('#output').html("<div class='find-true'>Artikel <span class='number'>"+number+"</span> wurde ausgewählt</div>");
     variationId = id;
     if(umbuchen)
     {
-      findPlaces();
+      $('#load').show();
+      setTimeout(function(){ findPlaces(); }, 20);
+
     }
     else {
       menge();
