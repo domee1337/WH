@@ -592,9 +592,13 @@ function getfreeplaces(warehouseId)
 
 }
 
-function returnfreeplaces(limit, type)
+function returnfreeplaces()
 {
+  var limit = $('#freeplaceslimit').val();
+  var type  = $('#freeplacestype').val();
   var limitzaehler = 0;
+  var results = 0;
+  var html = "<table class='table table-striped'><th>Lagerorte</th>";
   $.each(freeplaces, function(id, place){
     if(limitzaehler == limit)
     {
@@ -604,9 +608,15 @@ function returnfreeplaces(limit, type)
     if(place.type == type)
     {
       limitzaehler++;
-      console.log(place.name);
+      results++;
+      html = html+"<tr><td>"+place.name+"</td></tr>";
     }
   });
+  html = html+"</table>";
+  if(results > 0)
+  {
+    $('#freeplacesausgabe').html(html);
+  }
 }
 
 
