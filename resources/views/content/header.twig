@@ -25,9 +25,9 @@
 <!-- FREEPLACES DIALOG START -->
 <div id="freeplacesdialog" title="Freie Lagerorte" style='display: none;'>
   <p>Bitte berechnen Sie zuerst Ihre freien Lagerorte.</p>
-  <p class='text-danger' id='ueberschnitt'>Die freien Lagerorte sind lokal gespeichert, bei Mehrfachnutzung des Plugins kann es zu Überschneidungen führen.</p>
+  <p class='text-danger' id='ueberschnitt'>Die freien Lagerorte sind lokal gespeichert (Außer Sie werden neu berechnet!), bei Mehrfachnutzung des Plugins kann es zu Überschneidungen führen.</p>
   <a href='#' onclick="$('#ueberschnitt').fadeOut(200);$(this).fadeOut(200)" class='text-warning'>Hinweis ausblenden</a>
-  <p>Lager: 
+  <p>Lager:
     <select class='form-control' id='freeplaceswarehouses'>
       {% for warehouse in warehouses %}
           <option value="{{ warehouse.id }}">{{ warehouse.name }}</option>
