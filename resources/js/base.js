@@ -633,7 +633,7 @@ function togglefreielagerorte()
 function deletefreeplace(id)
 {
   delete freeplaces[id];
-  returnfreeplaces();
+  returnfreeplaces(); 
 }
 
 
