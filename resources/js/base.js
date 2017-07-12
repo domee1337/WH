@@ -593,6 +593,7 @@ function getfreeplaces(warehouseId)
                               },
                               success: function(data)
                               {
+
                                   $.each(data.entries, function(){
                                     shelves[this.id] = new Object();
                                     shelves[this.id] = this;
@@ -602,6 +603,7 @@ function getfreeplaces(warehouseId)
                           });
                           xhtml = xhtml + "</select>";
                           $('#rackselect').html(xhtml);
+                          alert("Berechnung erfolgreich.");
                         }
                       });
 
@@ -628,7 +630,7 @@ function getfreeplaces(warehouseId)
 
 
                   });
-                  alert("Berechnung erfolgreich.");
+
                 },
                 error: function(data)
                 {
