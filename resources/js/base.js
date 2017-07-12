@@ -601,7 +601,7 @@ function getfreeplaces(warehouseId)
                               }
                             });
                           });
-                          xhtml = xhtml + "</select>";
+                          xhtml = xhtml + "</select><script>$('#freeplacesracks').change( function(){changeregal($(this).val());});</script>";
                           $('#rackselect').html(xhtml);
                           alert("Berechnung erfolgreich.");
                         }
@@ -614,7 +614,8 @@ function getfreeplaces(warehouseId)
                     places[this.id] = {
                       name: this.name,
                       type: this.type,
-                      rack: this.rackId
+                      rack: this.rackId,
+                      shelf: this.shelfId
                     };
                   });
 
@@ -648,11 +649,25 @@ function getfreeplaces(warehouseId)
 
 
 }
+function changeregal(id)
+{
+  var html = "<select id='shelvselect' class='form-control'><option value='all'>Alle</option>";
+  $.each(shelves, function(){
+    if(this.rackId == id)
+    {
+      html = html + "<option value='"+this.id+"'>"+this.name+"</option>";
+    }
+  });
+  html = html + "</select>";
+  $('#shelvselect').html(html);
+}
 
 function returnfreeplaces()
 {
   var limit = $('#freeplaceslimit').val();
   var type  = $('#freeplacestype').val();
+  var rackId = $('#freeplacesracks').val();
+  var shelvId = $('#shelvselect').val();
   var limitzaehler = 0;
   var results = 0;
   var html = "<hr><table class='table table-striped'><th>Lagerorte</th>";
@@ -662,12 +677,71 @@ function returnfreeplaces()
       return false;
     }
 
-    if(place.type == type)
+    switch(true)
     {
-      limitzaehler++;
-      results++;
-      html = html+"<tr><td>"+place.name+"</td></tr>";
-    }
+      case rackId == "all" && shelvId == "all" && type == "all":
+        limitzaehler++;
+        results++;
+        html = html+"<tr><td>"+place.name+"</td></tr>";
+        break;
+      case rackId == "all" && shelvId == "all" && type != "all":
+        if(place.type == type)
+        {
+          limitzaehler++;
+          results++;
+          html = html+"<tr><td>"+place.name+"</td></tr>";
+        }
+        break;
+      case rackId == "all" && shelvId != "all" && type == "all":
+        if(place.shelf == shelvId)
+        {
+          limitzaehler++;
+          results++;
+          html = html+"<tr><td>"+place.name+"</td></tr>";
+        }
+        break;
+      case rackId != "all" && shelvId == "all" && type == "all":
+        if(place.rack == rackId)
+        {
+          limitzaehler++;
+          results++;
+          html = html+"<tr><td>"+place.name+"</td></tr>";
+        }
+        break;
+      case rackId == "all" && shelvId != "all" && type != "all":
+        if(place.shelf == shelvId && place.type == type)
+        {
+          limitzaehler++;
+          results++;
+          html = html+"<tr><td>"+place.name+"</td></tr>";
+        }
+        break;
+      case rackId != "all" && shelvId != "all" && type == "all":
+        if(place.shelf == shelvId && place.rack == rackId)
+        {
+          limitzaehler++;
+          results++;
+          html = html+"<tr><td>"+place.name+"</td></tr>";
+        }
+        break;
+      case rackId != "all" && shelvId == "all" && type != "all":
+          if(place.rack == rackId && place.type == type)
+          {
+            limitzaehler++;
+            results++;
+            html = html+"<tr><td>"+place.name+"</td></tr>";
+          }
+          break;
+      case rackId != "all" && shelvId != "all" && type != "all":
+        if(place.shelf == shelvId && place.rack == rackId && place.type == type)
+        {
+          limitzaehler++;
+          results++;
+          html = html+"<tr><td>"+place.name+"</td></tr>";
+        }
+        break;
+
+    }  
   });
   html = html+"</table>";
   if(results > 0)
@@ -765,10 +839,7 @@ $(document).ready(function(){
         }, 20);
       }
   });
-  $('#freeplacesracks').change( function()
-  {
-    console.log($(this).val());
-  });
+
   /**
   * Menubuttons z.b. Einbuchen oder Umbuchen
   */
