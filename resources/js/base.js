@@ -56,6 +56,7 @@ var usedlocation;
 var filledplaces = new Object();
 var places = new Object();
 var freeplaces = new Object();
+var shelves = new Object();
 /**
 * Funktion die einen Artikel über die Rest-Api anhand eines Barcodes sucht und in der div #output ausgibt
 * @param barcode string
@@ -565,12 +566,53 @@ function getfreeplaces(warehouseId)
                 },
                 success: function(data)
                 {
+                  /**
+                  * Racks bekommen
+                  */
+                  $.ajax({
+                        type: "GET",
+                        url: "/rest/stockmanagement/warehouses/"+warehouseId+"/management/racks",
+                        headers: {
+                          "Authorization": "Bearer "+localStorage.getItem("accessToken")
+                        },
+                        data: { itemsPerPage: "9999999"
+                        },
+                        success: function(data)
+                        {
+                          var xhtml = "<select id='freeplacesracks' class='form-control'><option value='all'>Alle</option>";
+                          console.log(data);
+                          $.each(data.entries, function(){
+                            xhtml = xhtml + "<option value='"+this.id+"'>"+this.name+"</option>";
+                            $.ajax({
+                              type: "GET",
+                              url: "/rest/stockmanagement/warehouses/"+warehouseId+"/management/racks/"+this.id+"/shelves",
+                              headers: {
+                                "Authorization": "Bearer "+localStorage.getItem("accessToken")
+                              },
+                              data: { itemsPerPage: "9999999"
+                              },
+                              success: function(data)
+                              {
+                                  $.each(data.entries, function(){
+                                    shelves[this.id] = new Object();
+                                    shelves[this.id] = this;
+                                  });
+                              }
+                            });
+                          });
+                          xhtml = xhtml + "</select>";
+                          $('#rackselect').html(xhtml);
+                        }
+                      });
+
+
                   $.each(data.entries, function()
                   {
                     places[this.id] = new Object();
                     places[this.id] = {
                       name: this.name,
-                      type: this.type
+                      type: this.type,
+                      rack: this.rackId
                     };
                   });
 
@@ -720,6 +762,10 @@ $(document).ready(function(){
           findPlaces();
         }, 20);
       }
+  });
+  $('#freeplacesracks').change( function()
+  {
+    console.log($(this).val());
   });
   /**
   * Menubuttons z.b. Einbuchen oder Umbuchen

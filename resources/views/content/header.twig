@@ -37,13 +37,18 @@
   <br />
   <input type='button' class='btn' value='Lagerorte berechnen' id='calcfreeplaces' onclick='getfreeplaces($("#freeplaceswarehouses").val());'>
   <hr>
-  <p>Limit: <input type='number' id='freeplaceslimit' class='form-control' value='4' min='1'></p>
-  <p>Type: <select class='form-control' id='freeplacestype'>
+  <p>Limit: </p><input type='number' id='freeplaceslimit' class='form-control' value='4' min='1'>
+  <p>Typ: </p><select class='form-control' id='freeplacestype'>
     <option value='small'>klein</option>
     <option value='medium'>mittel</option>
     <option value='large'>groß</option>
     <option value='europallet'>Europalette</option>
-  </select></p>
+  </select>
+  <p>Regal: <div id='rackselect'><select class='form-control' id='freeplacesracks'>
+  </select></div></p>
+
+  <p>Boden: <div id='shelvselect'><select class='form-control' id='freeplacesshelves'>
+  </select></div></p>
   <input type='button' class='btn' value='Zeige Lagerorte' id='showplaces' onclick='returnfreeplaces();'>
   <div id='freeplacesausgabe'>
   </div>
