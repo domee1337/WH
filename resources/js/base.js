@@ -586,6 +586,7 @@ function getfreeplaces(warehouseId)
 
 
                   });
+                  alert("Berechnung erfolgreich.");
                 },
                 error: function(data)
                 {
