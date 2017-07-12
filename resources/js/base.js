@@ -624,7 +624,12 @@ function returnfreeplaces()
 
 function togglefreielagerorte()
 {
-  $('#freeplacesdialog').fadeIn(200);
+  $('#freeplacesdialog').dialog("open");
+}
+
+function deletefreeplace(id)
+{
+  delete freeplaces[id];
 }
 
 

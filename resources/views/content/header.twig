@@ -23,7 +23,7 @@
 </div>
 <!-- SPINNER END -->
 <!-- FREEPLACES DIALOG START -->
-<div id="freeplacesdialog" title="Freie Lagerorte">
+<div id="freeplacesdialog" title="Freie Lagerorte" style='display: none;'>
   <p>Bitte berechnen Sie zuerst Ihre freien Lagerorte.</p>
   <p>Lager:</p>
   <select class='form-control' id='freeplaceswarehouses'>
@@ -34,14 +34,14 @@
   <br />
   <input type='button' class='btn' value='Lagerorte berechnen' id='calcfreeplaces' onclick='getfreeplaces($("#freeplaceswarehouses").val());'>
   <hr>
-  <p>Limit: <input type='number' id='freeplaceslimit' value='4' min='1'></p>
+  <p>Limit: <input type='number' id='freeplaceslimit' class='form-control' value='4' min='1'></p>
   <p>Type: <select class='form-control' id='freeplacestype'>
     <option value='small'>klein</option>
     <option value='medium'>mittel</option>
     <option value='large'>groß</option>
     <option value='europallet'>Europalette</option>
   </select></p>
-  <input type='button' class='btn' value='Zeige Lagerorte' id='showplaces' onclick='returnfreeplaces()'>
+  <input type='button' class='btn' value='Zeige Lagerorte' id='showplaces' onclick='returnfreeplaces();'>
   <div id='freeplacesausgabe'>
   </div>
 </div>
@@ -68,6 +68,7 @@
 
   <h1 style="padding-top: 20px; padding-bottom: 20px; display: inline-block;" class="menutip" menu="einbuchen" href="/storage/">Einbuchen</h1>&nbsp;
   <h1 style="padding-top: 20px; padding-bottom: 20px; display: inline-block;" class="menutip" menu="umbuchen" href="/storage/transfer">Umbuchen</h1>
+  <input type='button' class='btn' style='float: right' value='Freie Lagerorte' onclick='togglefreielagerorte();'>
   <!-- Warehouses[0] START -->
   <div class="warehouses">
     {% if warehouses is not null %}
@@ -78,12 +79,13 @@
     {% else %}
         <p>Bitte legen Sie ein Lager an</p>
       {% endif %}
+
   </div>
   <!-- Warehouses[0] END -->
 
   <script>
   $( function() {
-    $( "#freeplacesdialog" ).dialog();
+    $( "#freeplacesdialog" ).dialog({maxHeight: "700px", autoOpen: false});
   } );
   </script>
   {% block Body %}
