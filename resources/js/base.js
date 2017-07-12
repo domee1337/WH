@@ -580,7 +580,6 @@ function getfreeplaces(warehouseId)
                         success: function(data)
                         {
                           var xhtml = "<select id='freeplacesracks' class='form-control'><option value='all'>Alle</option>";
-                          console.log(data);
                           $.each(data.entries, function(){
                             xhtml = xhtml + "<option value='"+this.id+"'>"+this.name+"</option>";
                             $.ajax({
@@ -601,7 +600,7 @@ function getfreeplaces(warehouseId)
                               }
                             });
                           });
-                          xhtml = xhtml + "</select><script>$('#freeplacesracks').change( function(){changeregal($(this).val());});</script>";
+                          xhtml = xhtml + "</select><script>$(document).ready(function(){$('#freeplacesracks').change( function(){changeregal($(this).val());});});</script>";
                           $('#rackselect').html(xhtml);
                           alert("Berechnung erfolgreich.");
                         }
@@ -651,7 +650,7 @@ function getfreeplaces(warehouseId)
 }
 function changeregal(id)
 {
-  var html = "<select id='shelvselect' class='form-control'><option value='all'>Alle</option>";
+  var html = "<select id='shelvselects' class='form-control'><option value='all'>Alle</option>";
   $.each(shelves, function(){
     if(this.rackId == id)
     {
@@ -667,7 +666,7 @@ function returnfreeplaces()
   var limit = $('#freeplaceslimit').val();
   var type  = $('#freeplacestype').val();
   var rackId = $('#freeplacesracks').val();
-  var shelvId = $('#shelvselect').val();
+  var shelvId = $('#shelvselects').val();
   var limitzaehler = 0;
   var results = 0;
   var html = "<hr><table class='table table-striped'><th>Lagerorte</th>";
@@ -677,73 +676,80 @@ function returnfreeplaces()
       return false;
     }
 
-    switch(true)
+    if(rackId == "all" && shelvId == "all" && type == "all")
     {
-      case rackId == "all" && shelvId == "all" && type == "all":
         limitzaehler++;
         results++;
         html = html+"<tr><td>"+place.name+"</td></tr>";
-        break;
-      case rackId == "all" && shelvId == "all" && type != "all":
+    }
+    else if(rackId == "all" && shelvId == "all" && type != "all")
+    {
         if(place.type == type)
         {
           limitzaehler++;
           results++;
           html = html+"<tr><td>"+place.name+"</td></tr>";
         }
-        break;
-      case rackId == "all" && shelvId != "all" && type == "all":
+    }
+    else if(rackId == "all" && shelvId != "all" && type == "all")
+    {
         if(place.shelf == shelvId)
         {
           limitzaehler++;
           results++;
           html = html+"<tr><td>"+place.name+"</td></tr>";
         }
-        break;
-      case rackId != "all" && shelvId == "all" && type == "all":
+    }
+    else if(rackId != "all" && shelvId == "all" && type == "all")
+    {
         if(place.rack == rackId)
         {
           limitzaehler++;
           results++;
           html = html+"<tr><td>"+place.name+"</td></tr>";
         }
-        break;
-      case rackId == "all" && shelvId != "all" && type != "all":
+    }
+    else if(rackId == "all" && shelvId != "all" && type != "all")
+    {
         if(place.shelf == shelvId && place.type == type)
         {
           limitzaehler++;
           results++;
           html = html+"<tr><td>"+place.name+"</td></tr>";
         }
-        break;
-      case rackId != "all" && shelvId != "all" && type == "all":
+    }
+    else if(rackId != "all" && shelvId != "all" && type == "all")
+    {
         if(place.shelf == shelvId && place.rack == rackId)
         {
           limitzaehler++;
           results++;
           html = html+"<tr><td>"+place.name+"</td></tr>";
         }
-        break;
-      case rackId != "all" && shelvId == "all" && type != "all":
+    }
+    else if(rackId != "all" && shelvId == "all" && type != "all")
+    {
           if(place.rack == rackId && place.type == type)
           {
             limitzaehler++;
             results++;
             html = html+"<tr><td>"+place.name+"</td></tr>";
           }
-          break;
-      case rackId != "all" && shelvId != "all" && type != "all":
+    }
+    else if(rackId != "all" && shelvId != "all" && type != "all")
+    {
         if(place.shelf == shelvId && place.rack == rackId && place.type == type)
         {
           limitzaehler++;
           results++;
           html = html+"<tr><td>"+place.name+"</td></tr>";
         }
-        break;
+    }
 
-    }  
+
   });
   html = html+"</table>";
+  console.log(results);
   if(results > 0)
   {
     $('#freeplacesausgabe').html(html);
@@ -840,6 +846,20 @@ $(document).ready(function(){
       }
   });
 
+  $('#togglemenu').click( function(){
+    var active = $(this).attr("act");
+    if(active == "1")
+    {
+      $('#freeplacessettings').fadeOut(100);
+      $(this).text("Menü einblenden");
+      $(this).attr("act", "0");
+    }
+    else {
+      $('#freeplacessettings').fadeIn(100);
+      $(this).text("Menü ausblenden");
+      $(this).attr("act", "1");
+    }
+  });
   /**
   * Menubuttons z.b. Einbuchen oder Umbuchen
   */

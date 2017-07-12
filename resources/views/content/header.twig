@@ -24,6 +24,7 @@
 <!-- SPINNER END -->
 <!-- FREEPLACES DIALOG START -->
 <div id="freeplacesdialog" title="Freie Lagerorte" style='display: none;'>
+  <div id="freeplacessettings">
   <p>Bitte berechnen Sie zuerst Ihre freien Lagerorte.</p>
   <p class='text-danger' id='ueberschnitt'>Die freien Lagerorte sind lokal gespeichert (Außer Sie werden neu berechnet!), bei Mehrfachnutzung des Plugins kann es zu Überschneidungen führen.</p>
   <a href='#' onclick="$('#ueberschnitt').fadeOut(200);$(this).fadeOut(200)" class='text-warning'>Hinweis ausblenden</a>
@@ -50,7 +51,9 @@
 
   <p>Boden: <div id='shelvselect'><select class='form-control' id='freeplacesshelves'>
   </select></div></p>
+</div>
   <input type='button' class='btn' value='Zeige Lagerorte' id='showplaces' onclick='returnfreeplaces();'>
+  <a href="#" id="togglemenu" act="1">Menü ausblenden</a>
   <div id='freeplacesausgabe'>
   </div>
 </div>
