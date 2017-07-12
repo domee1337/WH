@@ -24,13 +24,23 @@
 <!-- SPINNER END -->
 <!-- FREEPLACES DIALOG START -->
 <div id="freeplacesdialog" title="Freie Lagerorte">
-  <p>Bitte lassen Sie zuerst Ihre freien Lagerorte berechnen</p>
+  <p>Bitte berechnen Sie erst Ihre freien Lagerorte.</p>
   <p>Lager:</p>
   <select class='form-control'>
     {% for warehouse in warehouses %}
         <option value="{{ warehouse.id }}">{{ warehouse.name }}</option>
     {% endfor %}
   </select>
+  <input type='button' class='btn' value='Lagerorte berechnen' id='calcfreeplaces'>
+  <p>Limit: <input type='number' id='freeplaceslimit' value='4' min='1'></p>
+  <p>Type: <select class='form-control' id='freeplacestype'>
+    <option value='small'>klein</option>
+    <option value='medium'>mittel</option>
+    <option value='large'>groß</option>
+    <option value='europallet'>Europalette</option>
+  </select></p>
+  <div id='freeplacesausgabe'>
+  </div>
 </div>
 <!-- FREEPLACES DIALOG END -->
 <!-- LOGIN FORM START -->
