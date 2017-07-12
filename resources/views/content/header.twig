@@ -5,6 +5,7 @@
 <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 <script src="{{ plugin_path('WH') }}/js/base.js"></script>
+<script src="{{ plugin_path('WH') }}/js/jquery-ui.min.js"></script>
 
 <link rel="stylesheet" href="{{ plugin_path('WH') }}/css/basic.css">
 
@@ -20,7 +21,17 @@
 
 </div>
 <!-- SPINNER END -->
-
+<!-- FREEPLACES DIALOG START -->
+<div id="freeplacesdialog" title="Freie Lagerorte">
+  <p>Bitte lassen Sie zuerst Ihre freien Lagerorte berechnen</p>
+  <p>Lager:</p>
+  <select class='form-control'>
+    {% for warehouse in warehouses %}
+        <option value="{{ warehouse.id }}">{{ warehouse.name }}</option>
+    {% endfor %}
+  </select>
+</div>
+<!-- FREEPLACES DIALOG END -->
 <!-- LOGIN FORM START -->
 <div id='login' style='display: none;'>
   <div class="login">
@@ -55,6 +66,12 @@
       {% endif %}
   </div>
   <!-- Warehouses[0] END -->
+
+  <script>
+  $( function() {
+    $( "#freeplacesdialog" ).dialog();
+  } );
+  </script>
   {% block Body %}
 
   {% endblock %}

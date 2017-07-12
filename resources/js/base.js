@@ -53,6 +53,9 @@ var variationId;
 var warehouses = new Object();
 var usedwarehouse;
 var usedlocation;
+var filledplaces = new Object();
+var places = new Object();
+var freeplaces = new Object();
 /**
 * Funktion die einen Artikel über die Rest-Api anhand eines Barcodes sucht und in der div #output ausgibt
 * @param barcode string
@@ -515,6 +518,98 @@ function umbuchen()
   }
 }
 
+function getfreeplaces(warehouseId)
+{
+  $.ajax({
+        type: "GET",
+        url: "/rest/stockmanagement/warehouses/"+warehouseId+"/stock/storageLocations",
+        headers: {
+          "Authorization": "Bearer "+localStorage.getItem("accessToken")
+        },
+        data: { itemsPerPage: "9999999"
+        },
+        success: function(data)
+        {
+          $.each(data.entries, function()
+          {
+            if(this.quantity > 0)
+            {
+            filledplaces[this.storageLocationId] = new Object();
+            filledplaces[this.storageLocationId] = 1;
+            }
+          });
+          /**
+          * Wenn die Storagelocations durch sind sucht er sich alle Locations
+          */
+          var limit = 4;
+          var limitzaehler = 0;
+          $.ajax({
+                type: "GET",
+                url: "/rest/stockmanagement/warehouses/"+warehouseId+"/management/storageLocations",
+                headers: {
+                  "Authorization": "Bearer "+localStorage.getItem("accessToken")
+                },
+                data: { itemsPerPage: "9999999"
+                },
+                success: function(data)
+                {
+                  $.each(data.entries, function()
+                  {
+                    places[this.id] = new Object();
+                    places[this.id] = {
+                      name: this.name,
+                      type: this.type
+                    };
+                  });
+
+                  $.each(places, function(id, place){
+
+                    if(typeof(filledplaces[id]) != "undefined")
+                    {
+                    }
+                    else {
+                      freeplaces[id] = new Object();
+                      freeplaces[id] = place;
+                    }
+
+
+                  });
+                },
+                error: function(data)
+                {
+                  console.log(data)
+                }
+            });
+
+        },
+        error: function(data)
+        {
+          console.log(data)
+        }
+    });
+
+
+
+}
+
+function returnfreeplaces(limit, type)
+{
+  var limitzaehler = 0;
+  $.each(freeplaces, function(id, place){
+    if(limitzaehler == limit)
+    {
+      return false;
+    }
+
+    if(place.type == type)
+    {
+      limitzaehler++;
+      console.log(place.name);
+    }
+  });
+}
+
+
 /**
 * Wenn das dokument ready ist
 */
@@ -581,7 +676,7 @@ $(document).ready(function(){
         warehouses[$(this).attr('whid')] = checked;
       });
 
-      if($('.findarticle').is(":disabled") && $('#menu_var').text() == "umbuchen" && !$('.locationean').is(":disabled"))
+      if($('.findarticle').is(":disabled") && $('#menu_var').text() == "umbuchen" && $('.locationean').is(":disabled"))
       {
         $('#load').show();
         setTimeout( function(){
