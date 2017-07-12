@@ -383,6 +383,7 @@ function einbuchen()
     if(warehouses[lager] == "1")
     {
     var location = xx[1];
+
     var qty = $('#menge').val();
     var date = new Date();
     date = date.toW3CString();
@@ -408,6 +409,7 @@ function einbuchen()
           ]},
           success: function(data)
           {
+            deletefreeplace(location);
             $('#load').hide();
             $('#output').html("<div class='green'><p>Artikel wurde erfolgreich eingebucht</p></div>");
             $('.locationEan').prop("disabled", true);
@@ -490,6 +492,7 @@ function umbuchen()
           ]},
           success: function(data)
           {
+            deletefreeplace(location);
             $('#load').hide();
             $('#output').html("<div class='green'><p>Artikel wurde erfolgreich umgebucht</p></div>");
             $('.output').hide();
@@ -630,6 +633,7 @@ function togglefreielagerorte()
 function deletefreeplace(id)
 {
   delete freeplaces[id];
+  returnfreeplaces();
 }
 
 
