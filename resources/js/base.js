@@ -598,7 +598,7 @@ function returnfreeplaces()
   var type  = $('#freeplacestype').val();
   var limitzaehler = 0;
   var results = 0;
-  var html = "<table class='table table-striped'><th>Lagerorte</th>";
+  var html = "<hr><table class='table table-striped'><th>Lagerorte</th>";
   $.each(freeplaces, function(id, place){
     if(limitzaehler == limit)
     {
@@ -617,6 +617,14 @@ function returnfreeplaces()
   {
     $('#freeplacesausgabe').html(html);
   }
+  else {
+    $('#freeplacesausgabe').html("<hr><p style='color: red;'>Keine Lagerorte gefunden.</p>");
+  }
+}
+
+function togglefreielagerorte()
+{
+  $('#freeplacesdialog').fadeIn(200);
 }
 
 
