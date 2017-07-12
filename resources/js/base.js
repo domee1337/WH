@@ -854,7 +854,7 @@ $(document).ready(function(){
       $(this).text("Menü einblenden");
       $(this).attr("act", "0");
     }
-    else {
+    else { 
       $('#freeplacessettings').fadeIn(100);
       $(this).text("Menü ausblenden");
       $(this).attr("act", "1");
