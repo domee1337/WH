@@ -523,6 +523,15 @@ function umbuchen()
 
 function getfreeplaces(warehouseId)
 {
+  /**
+  * Reset the objects
+  */
+  filledplaces = new Object();
+  freeplaces = new Object();
+  places = new Object();
+  /**
+  * Ajax
+  */
   $.ajax({
         type: "GET",
         url: "/rest/stockmanagement/warehouses/"+warehouseId+"/stock/storageLocations",
@@ -633,7 +642,7 @@ function togglefreielagerorte()
 function deletefreeplace(id)
 {
   delete freeplaces[id];
-  returnfreeplaces(); 
+  returnfreeplaces();
 }
 
 
