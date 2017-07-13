@@ -468,7 +468,7 @@ function exportfreeplaces()
   $('#load').show();
   var csvContent = "data:text/csv;charset=utf-8,";
   csvContent += "storageLocationId;storageLocationName"+"\n";
-  $.each(returnfreeplaces(), function(key, place)
+  $.each(returnfreeplaces("1"), function(key, place)
   {
     console.log(place);
     csvContent += place[0] + ";" + place[1] + "\n";
@@ -607,7 +607,7 @@ function changeregal(id) {
     $('#shelvselect').html(html);
 }
 
-function returnfreeplaces() {
+function returnfreeplaces(exp = "0") {
     var limit = $('#freeplaceslimit').val();
     var type = $('#freeplacestype').val();
     var rackId = $('#freeplacesracks').val();
@@ -688,10 +688,13 @@ function returnfreeplaces() {
     });
     html = html + "</table>";
     console.log(results);
-    if (results > 0) {
-        $('#freeplacesausgabe').html(html);
-    } else {
-        $('#freeplacesausgabe').html("<hr><p style='color: red;'>Keine Lagerorte gefunden.</p>");
+    if(exp == "0")
+    {
+      if (results > 0) {
+          $('#freeplacesausgabe').html(html);
+      } else {
+          $('#freeplacesausgabe').html("<hr><p style='color: red;'>Keine Lagerorte gefunden.</p>");
+      }
     }
     return xreturn;
 }
