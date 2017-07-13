@@ -9,6 +9,7 @@ use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
 use Plenty\Modules\StockManagement\Warehouse\Contracts\WarehouseRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationLookupRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
+use Plenty\Modules\DataExchange\Contracts;
 
 /**
  * Class ContentController
@@ -48,7 +49,13 @@ class ContentController extends Controller
       $resultx = $whRepo->all();
       return $resultx;
     }
-
+    public function test(CSVGenerator $csv)
+    {
+      $csv->setDelimiter(";");
+      $array = array("test", "123", "meintest");
+      $csv->addCSVContent($array);
+      $csv->generateContent();
+    }
     /**
      * @param int                           $id
      * @param StockRepositoryContract       $stockRepo
@@ -101,7 +108,7 @@ class ContentController extends Controller
       }
       else {
         foreach($result as $item)
-        { 
+        {
           $resultx = $varRepoCo->findById($item['variationId']);
           $return['variants'][] = $resultx;
         }
