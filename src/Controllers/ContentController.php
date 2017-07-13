@@ -9,7 +9,7 @@ use Plenty\Modules\StockManagement\Stock\Contracts\StockRepositoryContract;
 use Plenty\Modules\StockManagement\Warehouse\Contracts\WarehouseRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationLookupRepositoryContract;
 use Plenty\Modules\Item\Variation\Contracts\VariationRepositoryContract;
-use Plenty\Modules\DataExchange\Contracts;
+use Plenty\Modules\DataExchange\Contracts\CSVGenerator;
 
 /**
  * Class ContentController
