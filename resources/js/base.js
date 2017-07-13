@@ -463,6 +463,26 @@ function umbuchen() {
     }
 }
 
+function exportfreeplaces()
+{
+  $('#load').show();
+  var csvContent = "data:text/csv;charset=utf-8,";
+  csvContent += "storageLocationId;storageLocationName"+"\n";
+  $.each(returnfreeplaces(), function(key, place)
+  {
+    console.log(place);
+    csvContent += place[0] + ";" + place[1] + "\n";
+  });
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", "export.csv");
+  document.body.appendChild(link); // Required for FF
+
+  link.click();
+  $('#load').hide();
+}
+
 function getfreeplaces(warehouseId) {
     /**
   * Reset the objects
@@ -595,6 +615,7 @@ function returnfreeplaces() {
     var limitzaehler = 0;
     var results = 0;
     var html = "<hr><table class='table table-striped'><th>Lagerorte</th>";
+    var xreturn = new Object();
     $.each(freeplaces, function(id, place) {
         if (limitzaehler == limit) {
             return false;
@@ -604,47 +625,63 @@ function returnfreeplaces() {
             limitzaehler++;
             results++;
             html = html + "<tr><td>" + place.name + "</td></tr>";
+            xreturn[results] = new Object();
+            xreturn[results] = [id, place.name];
         } else if (rackId == "all" && shelvId == "all" && type != "all") {
             if (place.type == type) {
                 limitzaehler++;
                 results++;
                 html = html + "<tr><td>" + place.name + "</td></tr>";
+                xreturn[results] = new Object();
+                xreturn[results] = [id, place.name];
             }
         } else if (rackId == "all" && shelvId != "all" && type == "all") {
             if (place.shelf == shelvId) {
                 limitzaehler++;
                 results++;
                 html = html + "<tr><td>" + place.name + "</td></tr>";
+                xreturn[results] = new Object();
+                xreturn[results] = [id, place.name];
             }
         } else if (rackId != "all" && shelvId == "all" && type == "all") {
             if (place.rack == rackId) {
                 limitzaehler++;
                 results++;
                 html = html + "<tr><td>" + place.name + "</td></tr>";
+                xreturn[results] = new Object();
+                xreturn[results] = [id, place.name];
             }
         } else if (rackId == "all" && shelvId != "all" && type != "all") {
             if (place.shelf == shelvId && place.type == type) {
                 limitzaehler++;
                 results++;
                 html = html + "<tr><td>" + place.name + "</td></tr>";
+                xreturn[results] = new Object();
+                xreturn[results] = [id, place.name];
             }
         } else if (rackId != "all" && shelvId != "all" && type == "all") {
             if (place.shelf == shelvId && place.rack == rackId) {
                 limitzaehler++;
                 results++;
                 html = html + "<tr><td>" + place.name + "</td></tr>";
+                xreturn[results] = new Object();
+                xreturn[results] = [id, place.name];
             }
         } else if (rackId != "all" && shelvId == "all" && type != "all") {
             if (place.rack == rackId && place.type == type) {
                 limitzaehler++;
                 results++;
                 html = html + "<tr><td>" + place.name + "</td></tr>";
+                xreturn[results] = new Object();
+                xreturn[results] = [id, place.name];
             }
         } else if (rackId != "all" && shelvId != "all" && type != "all") {
             if (place.shelf == shelvId && place.rack == rackId && place.type == type) {
                 limitzaehler++;
                 results++;
                 html = html + "<tr><td>" + place.name + "</td></tr>";
+                xreturn[results] = new Object();
+                xreturn[results] = [id, place.name];
             }
         }
 
@@ -656,6 +693,7 @@ function returnfreeplaces() {
     } else {
         $('#freeplacesausgabe').html("<hr><p style='color: red;'>Keine Lagerorte gefunden.</p>");
     }
+    return xreturn;
 }
 
 function togglefreielagerorte() {
