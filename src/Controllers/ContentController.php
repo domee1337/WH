@@ -51,10 +51,7 @@ class ContentController extends Controller
     }
     public function test(CSVGenerator $csv)
     {
-      $csv->setDelimiter(";");
-      $array = array("test", "123", "meintest");
-      $csv->addCSVContent($array);
-      $csv->generateContent();
+
     }
     /**
      * @param int                           $id
