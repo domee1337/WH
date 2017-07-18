@@ -1,8 +1,8 @@
 /**
-* Prototype für das datum mit W3C-Format
-* Wichtig für den Wareneingang!
-* Evtl. TO-DO wenn Plenty die Server-Zeit selber setzen würde
-*/
+ * Prototype für das datum mit W3C-Format
+ * Wichtig für den Wareneingang!
+ * Evtl. TO-DO wenn Plenty die Server-Zeit selber setzen würde
+ */
 
 Date.prototype.toW3CString = function() {
     var year = this.getFullYear();
@@ -41,12 +41,11 @@ Date.prototype.toW3CString = function() {
         offsetSign = '-';
     }
     return year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':' + seconds + offsetSign + offsetHours + ':' + offsetMinutes;
-}
-;
+};
 
 /**
-* Globale variablen
-*/
+ * Globale variablen
+ */
 var variationId;
 var warehouses = new Object();
 var usedwarehouse;
@@ -56,9 +55,9 @@ var places = new Object();
 var freeplaces = new Object();
 var shelves = new Object();
 /**
-* Funktion die einen Artikel über die Rest-Api anhand eines Barcodes sucht und in der div #output ausgibt
-* @param barcode string
-*/
+ * Funktion die einen Artikel über die Rest-Api anhand eines Barcodes sucht und in der div #output ausgibt
+ * @param barcode string
+ */
 function findVariant(barcode) {
 
     $('#load').show();
@@ -122,10 +121,49 @@ function findVariant(barcode) {
         }
     });
 }
+
+function findPlace(locationean) {
+    var x = locationean.split("L");
+    var error = 0;
+    if (typeof x[1] != 'undefined') {
+        var xx = x[1].split("S");
+    } else {
+        var x = locationean.split("l");
+        if (typeof x[1] != 'undefined') {
+            var xx = x[1].split("s");
+        } else {
+            error = 1;
+        }
+    }
+
+    if (error === 0) {
+        var lager = xx[0];
+        var location = xx[1];
+
+        $.ajax({
+            type: "GET",
+            url: "/rest/stockmanagement/warehouses/" + lager + "/management/storageLocations/" + location + "",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("accessToken")
+            },
+            success: function(data) {
+                console.log(data);
+
+            },
+            error: function(data) {
+                var json = $.parseJSON(data.responseText);
+                $('#output').html("<div class='find-false'><p>PlentyMarkets meldet folgenden Fehler: <br/> ErrorCode: " + json.error.code + " <br/> Message: " + json.error.message + "</p></div>");
+                $('.findArticle').removeAttr("disabled");
+                $('.findArticle').select();
+            }
+        });
+    }
+
+}
 /**
-* Funktion die, die Lagerorte eines Artikels findet
-* beachtet werden die LagerCheckboxen
-*/
+ * Funktion die, die Lagerorte eines Artikels findet
+ * beachtet werden die LagerCheckboxen
+ */
 function findPlaces() {
     $('#load').show();
     $('#lagerorteoutput').show();
@@ -185,10 +223,10 @@ function findPlaces() {
 }
 
 /**
-* Funktion die, die Lagerortnamen ermittelt
-* TO-DO: leider ist dies zurzeit nur möglich über einen Extra-Call der Rest-Api, d.h. es ist nicht sonderlich performant
-* @param array
-*/
+ * Funktion die, die Lagerortnamen ermittelt
+ * TO-DO: leider ist dies zurzeit nur möglich über einen Extra-Call der Rest-Api, d.h. es ist nicht sonderlich performant
+ * @param array
+ */
 function getLocationName(locationames) {
     $('#load').show();
     $.each(locationames, function(locationId, warehouseId) {
@@ -217,8 +255,8 @@ function getLocationName(locationames) {
 
 }
 /**
-* Login Funktion über die Rest-Api mit den Plenty-Logindaten
-*/
+ * Login Funktion über die Rest-Api mit den Plenty-Logindaten
+ */
 function login() {
     $('#load').show();
     var username = $('#username').val();
@@ -254,16 +292,16 @@ function login() {
 }
 
 /**
-* Funktion zum logout, derzeit wird nur das LocalStorage geleert, evtl. Logout über die Rest-Api
-*/
+ * Funktion zum logout, derzeit wird nur das LocalStorage geleert, evtl. Logout über die Rest-Api
+ */
 function logout() {
     $('#load').fadeIn(100);
     localStorage.removeItem("accessToken");
     location.reload();
 }
 /**
-* Funktion die bestimmt ob die standardisierte menge aktiviert ist
-*/
+ * Funktion die bestimmt ob die standardisierte menge aktiviert ist
+ */
 function menge() {
     $('.back').removeAttr("disabled");
     if ($("#standart_menge").is(':checked')) {
@@ -276,8 +314,8 @@ function menge() {
     }
 }
 /**
-* Funktion die prüft ob der accessToken im LocalStorage gültig ist, wenn nicht erscheint die Login-Maske
-*/
+ * Funktion die prüft ob der accessToken im LocalStorage gültig ist, wenn nicht erscheint die Login-Maske
+ */
 function checkaccess() {
 
     $.ajax({
@@ -300,9 +338,9 @@ function checkaccess() {
     });
 }
 /**
-* Funktion die einen Artikel "benutzt" beim button "Ok" wenn mehrere Artikel gefunden wurden
-*/
-function usevariant(id, umbuchen=false) {
+ * Funktion die einen Artikel "benutzt" beim button "Ok" wenn mehrere Artikel gefunden wurden
+ */
+function usevariant(id, umbuchen = false) {
 
     var number = $("#variant_" + id).text();
     $('#output').html("<div class='find-true'>Artikel <span class='number'>" + number + "</span> wurde ausgewählt</div>");
@@ -319,8 +357,8 @@ function usevariant(id, umbuchen=false) {
 
 }
 /**
-* Funktion die, die Ware beim erfolgreichen scannen über die Rest-Api einbucht
-*/
+ * Funktion die, die Ware beim erfolgreichen scannen über die Rest-Api einbucht
+ */
 function einbuchen() {
     $('#load').show();
     var locationean = $('.locationEan').val();
@@ -393,8 +431,8 @@ function einbuchen() {
     }
 }
 /**
-* Funktion die, den ausgewählten Datensatz auf einen neuen über die Rest-Api umbucht
-*/
+ * Funktion die, den ausgewählten Datensatz auf einen neuen über die Rest-Api umbucht
+ */
 function umbuchen() {
     $('#load').show();
     var locationean = $('.locationEan').val();
@@ -463,36 +501,34 @@ function umbuchen() {
     }
 }
 
-function exportfreeplaces()
-{
-  $('#load').show();
-  var csvContent = "data:text/csv;charset=utf-8,";
-  csvContent += "storageLocationId;storageLocationName"+"\n";
-  $.each(returnfreeplaces("1"), function(key, place)
-  {
-    console.log(place);
-    csvContent += place[0] + ";" + place[1] + "\n";
-  });
-  var encodedUri = encodeURI(csvContent);
-  var link = document.createElement("a");
-  link.setAttribute("href", encodedUri);
-  link.setAttribute("download", "export.csv");
-  document.body.appendChild(link); // Required for FF
+function exportfreeplaces() {
+    $('#load').show();
+    var csvContent = "data:text/csv;charset=utf-8,";
+    csvContent += "storageLocationId;storageLocationName" + "\n";
+    $.each(returnfreeplaces("1"), function(key, place) {
+        console.log(place);
+        csvContent += place[0] + ";" + place[1] + "\n";
+    });
+    var encodedUri = encodeURI(csvContent);
+    var link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "export.csv");
+    document.body.appendChild(link); // Required for FF
 
-  link.click();
-  $('#load').hide();
+    link.click();
+    $('#load').hide();
 }
 
 function getfreeplaces(warehouseId) {
     /**
-  * Reset the objects
-  */
+     * Reset the objects
+     */
     filledplaces = new Object();
     freeplaces = new Object();
     places = new Object();
     /**
-  * Ajax
-  */
+     * Ajax
+     */
     $.ajax({
         type: "GET",
         url: "/rest/stockmanagement/warehouses/" + warehouseId + "/stock/storageLocations",
@@ -510,8 +546,8 @@ function getfreeplaces(warehouseId) {
                 }
             });
             /**
-          * Wenn die Storagelocations durch sind sucht er sich alle Locations
-          */
+             * Wenn die Storagelocations durch sind sucht er sich alle Locations
+             */
             var limit = 4;
             var limitzaehler = 0;
             $.ajax({
@@ -525,8 +561,8 @@ function getfreeplaces(warehouseId) {
                 },
                 success: function(data) {
                     /**
-                  * Racks bekommen
-                  */
+                     * Racks bekommen
+                     */
                     $.ajax({
                         type: "GET",
                         url: "/rest/stockmanagement/warehouses/" + warehouseId + "/management/racks",
@@ -576,7 +612,7 @@ function getfreeplaces(warehouseId) {
 
                     $.each(places, function(id, place) {
 
-                        if (typeof (filledplaces[id]) != "undefined") {} else {
+                        if (typeof(filledplaces[id]) != "undefined") {} else {
                             freeplaces[id] = new Object();
                             freeplaces[id] = place;
                         }
@@ -596,6 +632,7 @@ function getfreeplaces(warehouseId) {
     });
 
 }
+
 function changeregal(id) {
     var html = "<select id='shelvselects' class='form-control'><option value='all'>Alle</option>";
     $.each(shelves, function() {
@@ -688,13 +725,12 @@ function returnfreeplaces(exp = "0") {
     });
     html = html + "</table>";
     console.log(results);
-    if(exp == "0")
-    {
-      if (results > 0) {
-          $('#freeplacesausgabe').html(html);
-      } else {
-          $('#freeplacesausgabe').html("<hr><p style='color: red;'>Keine Lagerorte gefunden.</p>");
-      }
+    if (exp == "0") {
+        if (results > 0) {
+            $('#freeplacesausgabe').html(html);
+        } else {
+            $('#freeplacesausgabe').html("<hr><p style='color: red;'>Keine Lagerorte gefunden.</p>");
+        }
     }
     return xreturn;
 }
@@ -709,52 +745,52 @@ function deletefreeplace(id) {
 }
 
 /**
-* Wenn das dokument ready ist
-*/
+ * Wenn das dokument ready ist
+ */
 $(document).ready(function() {
     checkaccess();
 
     /**
-  * Button "login" -> funktion login();
-  */
+     * Button "login" -> funktion login();
+     */
     $('#submit').click(function() {
         login();
     });
     /**
-  * Input "username" bei enter -> funktion login();
-  */
+     * Input "username" bei enter -> funktion login();
+     */
     $('#username').bind("keydown", function(e) {
         if (e.keyCode === 13) {
             login();
         }
     });
     /**
-  * Input "password" bei enter -> funktion login();
-  */
+     * Input "password" bei enter -> funktion login();
+     */
     $('#password').bind("keydown", function(e) {
         if (e.keyCode === 13) {
             login();
         }
     });
     /**
-  * Wenn ein Ajax-Request gestartet wird
-  * 1. Ladebalken wird eingeblentet
-  * 2. accessToken wird geprüft
-  */
+     * Wenn ein Ajax-Request gestartet wird
+     * 1. Ladebalken wird eingeblentet
+     * 2. accessToken wird geprüft
+     */
     $(document).ajaxStart(function() {
         $('#load').fadeIn(100);
         checkaccess();
         /**
-  * Wenn ein Ajax-Request beendet wird
-  * Ladebalken wird ausgeblentet
-  */
+         * Wenn ein Ajax-Request beendet wird
+         * Ladebalken wird ausgeblentet
+         */
     }).ajaxStop(function() {
         $('#load').fadeOut(100);
     });
 
     /**
-  * Wenn ein Lager ausgewählt wird
-  */
+     * Wenn ein Lager ausgewählt wird
+     */
     $('.warehousecheckbox').change(function() {
 
         $('.warehousecheckbox').each(function() {
@@ -788,14 +824,14 @@ $(document).ready(function() {
         }
     });
     /**
-  * Menubuttons z.b. Einbuchen oder Umbuchen
-  */
+     * Menubuttons z.b. Einbuchen oder Umbuchen
+     */
     $('.menutip').click(function() {
         window.location = $(this).attr('href');
     });
 
     /**
-  * Definiert Menu/Tab
-  */
+     * Definiert Menu/Tab
+     */
     $('.menutip[menu=' + $('#menu_var').text() + ']').removeClass("menutip");
 });

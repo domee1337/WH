@@ -1,17 +1,25 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-<!---->
-<h1>Incoming</h1>
-<!-- Warehouses[0] START -->
-<div class="warehouses">
-  {% if warehouses is not null %}
-    {% for warehouse in warehouses %}
-      <label>
-        <input type="checkbox" class="warehousecheckbox" whid="{{ warehouse.id }}" > {{ warehouse.name }}
-      &nbsp;</label>
-    {% endfor %}
-  {% else %}
-    <p>Bitte legen Sie ein Lager an</p>
-  {% endif %}
+{% extends "WH::content.header" %}
+
+{% block Body %}
+
+  <div class="body" id="menu_einbuchen">
+      <hr>
+      <br />
+      <!-- body -->
+      <input type="text" class="form-control findPlace" placeholder="LagerortEAN">
+      <input type="button" class="btn back" value="Zurück" disabled>
+      <div id="output_place"></div>
+      <br />
+      <p class="inline">Menge: </p><input type="number" id="menge" value="1" class="form-control inline"><input type="checkbox" id="standart_menge"><p class="inline">Standardisierte Menge</p>
+      <input type="text" id="articleean" placeholder="ArtikelEAN" class="form-control artikelEAN" disabled>
+      <div id="status"></div>
+      <div id="output"></div>
+      <br />
+      <!-- body end -->
+  </div>
 </div>
-<!-- Warehouses[0] END -->
+
+<span id="menu_var" style="display: none;">einbuchen</span>
+
+<script src="{{ plugin_path('WH') }}/js/incoming.js"></script>
+{% endblock %}
