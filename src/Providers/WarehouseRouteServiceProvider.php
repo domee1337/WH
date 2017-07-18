@@ -17,6 +17,7 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider{
         $router->get('storage/transfer',              'WH\Controllers\ContentController@render_transfer');
         $router->get('storage/inventur',              'WH\Controllers\ContentController@render_inventur');
         $router->get('storage/test',                  'WH\Controllers\ContentController@test');
+        $router->get('storage/incoming',                  'WH\Controllers\ContentController@render_incoming');
     }
 
 }
