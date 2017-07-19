@@ -143,7 +143,21 @@ function clearincomings() {
 }
 
 function showincomings() {
-    console.log(incoming);
+
+
+    var html = "<table class='table table-striped'><th>VariantenId</th><th>Variantennummer</th><th>Menge</th>";
+    $.each(incoming, function(key, data) {
+        html = html +
+            "<tr>" +
+            "<td>" + key + "</td>" +
+            "<td>" + data[0] + "</td>" +
+            "<td><input type='number' class='previewarticle form-control' vid='" + key + "' number='" + data[0] + "' value='" + data[1] + "'></td>" +
+            "</tr>"
+    });
+    html = html + "</table>";
+    $('#articlepreview').html(html);
+    $('#myModal').modal("show");
+
 }
 
 function bookincomings() {

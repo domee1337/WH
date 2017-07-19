@@ -32,4 +32,20 @@ $(document).ready(function() {
         }
     });
 
+    $('#savepreview').click(function() {
+        $('.previewarticle').each(function() {
+            var id = $(this).attr("vid");
+            var number = $(this).attr("number");
+            var qty = $(this).val();
+            if (qty == 0) {
+                delete incoming[id];
+            } else {
+                incoming[id] = [number, qty];
+            }
+
+        });
+        alert("Speichern erfolgreich");
+        $('#myModal').modal("hide");
+    });
+
 });
