@@ -107,7 +107,7 @@ function findVariant(barcode, umbuchen = false, incomings = false) {
                         findPlaces(used, umbuchen, incomings);
                     } else if (incomings) {
                         $('#menge').attr("number", number);
-                        $('#menge').attr("variationid", variationid);
+                        $('#menge').attr("variationid", variationId);
                         mengeincoming();
                     } else {
                         menge();
