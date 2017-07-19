@@ -131,7 +131,7 @@ function refreshstatus() {
     console.log(incoming);
     $('#output').html("");
     $('#articleean').select();
-    $('#status').html("<p class='green'>Sie haben <b>" + Object.keys(incoming).length + "</b> Artikel hinzugefügt&nbsp;<input type='button' value='Leeren' class='btn' onclick='clearincomings();'>&nbsp;<input type='button' value='Anzeigen' class='btn' onclick='showincomings();'></p>");
+    $('#status').html("<p class='green'>Sie haben <b>" + Object.keys(incoming).length + "</b> Artikel hinzugefügt&nbsp;<input style='margin-bottom: 4px;' type='button' value='Leeren' class='btn' onclick='clearincomings();'>&nbsp;<input style='margin-bottom: 4px;' type='button' value='Anzeigen' class='btn' onclick='showincomings();'>&nbsp;<input style='margin-bottom: 4px;' type='button' value='Wareneingänge buchen' class='btn' onclick='bookincomings();'></p>");
 }
 
 function clearincomings() {
@@ -144,6 +144,47 @@ function clearincomings() {
 
 function showincomings() {
     console.log(incoming);
+}
+
+function bookincomings() {
+    var json = '{"incomingItems": [';
+    var z = 1;
+    var l = Object.keys(incoming).length;
+    var sep = "";
+    if (l > 0) {
+        $.each(incoming, function(key, data) {
+            if (z != l) {
+                sep = ",";
+            } else {
+                sep = "";
+            }
+            z++;
+            var date = new Date();
+            date = date.toW3CString();
+            json = json + '{"variationId": ' + key + ',"currency": "EUR", "reasonId": 101, "storageLocationId": ' + usedlocation + ', "deliveredAt": "' + date + '", "quantity": ' + data[1] + '}' + sep;
+        });
+        json = json + "]}";
+        datax = $.parseJSON(json);
+        var url = "/rest/stockmanagement/warehouses/" + usedwarehouse + "/stock/bookIncomingItems";
+        $.ajax({
+            type: "PUT",
+            url: url,
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("accessToken")
+            },
+            data: datax,
+            success: function(data) {
+                $('.back').click();
+                $('#output').html("<p class='green'>Wareneingänge wurden erfolgreich gebucht.</p>");
+            },
+            error: function(data) {
+                console.log(data)
+            }
+        });
+    } else {
+        alert("Bitte fügen Sie einen Artikel hinzu.");
+    }
+
 }
 
 function findPlace(locationean) {
@@ -172,6 +213,8 @@ function findPlace(locationean) {
                 "Authorization": "Bearer " + localStorage.getItem("accessToken")
             },
             success: function(data) {
+                usedlocation = location;
+                usedwarehouse = lager;
                 $('#output_place').html("<p class='find-true'>Lagerort <b>" + data.name + "</b> wurde gefunden</p>");
                 $('.findPlace').prop("disabled", true);
                 $('.back').removeAttr("disabled");
@@ -370,13 +413,15 @@ function mengeincoming(next = false) {
 }
 
 function addincomingitem(id, number, menge) {
-    if (typeof(incoming[id]) === "undefined") {
-        incoming[id] = new Object();
-        incoming[id] = [number, parseInt(menge)];
-    } else {
-        var old = incoming[id][1];
-        var newx = parseInt(old) + parseInt(menge);
-        incoming[id] = [number, newx];
+    if ($("#articleean").prop('disabled')) {} else {
+        if (typeof(incoming[id]) === "undefined") {
+            incoming[id] = new Object();
+            incoming[id] = [number, parseInt(menge)];
+        } else {
+            var old = incoming[id][1];
+            var newx = parseInt(old) + parseInt(menge);
+            incoming[id] = [number, newx];
+        }
     }
 
 }

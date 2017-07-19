@@ -10,8 +10,7 @@ $(document).ready(function() {
             var variationId = $('#menge').attr("variationId");
             var number = $('#menge').attr("number");
             var menge = $(this).val();
-            incoming[variationId] = new Object();
-            incoming[variationId] = [number, menge];
+            addincomingitem(variationId, number, menge);
             refreshstatus();
         }
     });
