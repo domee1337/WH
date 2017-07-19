@@ -133,7 +133,7 @@ function refreshstatus() {
         $('#articleean').select();
         $('#status').html("<p class='green'>Sie haben <b>" + Object.keys(incoming).length + "</b> Artikel hinzugefügt&nbsp;<input style='margin-bottom: 4px;' type='button' value='Leeren' class='btn' onclick='clearincomings();'>&nbsp;<input style='margin-bottom: 4px;' type='button' value='Anzeigen' class='btn' onclick='showincomings();'>&nbsp;<input style='margin-bottom: 4px;' type='button' value='Wareneingänge buchen' class='btn' onclick='bookincomings();'></p>");
     } else {
-        $('#output').html("<p class='find-false'>Sie haben noch keine Artikel hinzugefügt</p>");
+        $('#status').html("<p class='find-false'>Sie haben noch keine Artikel hinzugefügt</p>");
     }
 }
 
