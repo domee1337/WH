@@ -7,22 +7,29 @@ $(document).ready(function() {
     });
     $('#menge').bind("keydown", function(e) {
         if (e.keyCode === 13) {
-            $('.locationEan').focus();
+            var variationId = $('#menge').attr("variationId");
+            var number = $('#menge').attr("number");
+            var menge = $(this).val();
+            incoming[variationId] = new Object();
+            incoming[variationId] = [number, menge];
+            refreshstatus();
         }
     });
     $('.back').click(function() {
         $(this).prop("disabled", true);
         $('#output').html("");
-        $('.locationEan').val("");
-        $('.findArticle').val("");
-        $('.locationEan').prop("disabled", true);
-        $('.findArticle').removeAttr("disabled");
-        $('.findArticle').focus();
+        $('#status').html("");
+        $('#output_place').html("");
+        $('#articleean').val("");
+        $('.findPlace').val("");
+        $('#articleean').prop("disabled", true);
+        $('.findPlace').removeAttr("disabled");
+        $('.findPlace').focus();
     });
 
-    $('.locationEan').bind("keydown", function(e) {
+    $('#articleean').bind("keydown", function(e) {
         if (e.keyCode === 13) {
-            einbuchen();
+            findVariant($(this).val(), false, true);
         }
     });
 

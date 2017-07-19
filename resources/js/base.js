@@ -54,12 +54,13 @@ var filledplaces = new Object();
 var places = new Object();
 var freeplaces = new Object();
 var shelves = new Object();
+var incoming = new Object();
 /**
  * Funktion die einen Artikel über die Rest-Api anhand eines Barcodes sucht und in der div #output ausgibt
  * @param barcode string
  */
-function findVariant(barcode) {
-
+function findVariant(barcode, umbuchen = false, incomings = false) {
+    console.log(incomings);
     $('#load').show();
     $('.findArticle').prop("disabled", true);
     $.ajax({
@@ -91,7 +92,7 @@ function findVariant(barcode) {
                         $('#output').append("<div class='find-true'><p>Artikel <span id='variant_" + variant.id + "' class='number'>" + variant.number + "</span> wurde gefunden. </p><span variant='" + variant.id + "' class='use_variant btn'  onclick='usevariant(" + variant.id + ", true);'><i class='material-icons'>done</i></span></div>");
 
                     } else {
-                        $('#output').append("<div class='find-true'><p>Artikel <span id='variant_" + variant.id + "' class='number'>" + variant.number + "</span> wurde gefunden. </p><span variant='" + variant.id + "' class='use_variant btn' onclick='usevariant(" + variant.id + ");'><i class='material-icons'>done</i></span></div>");
+                        $('#output').append("<div class='find-true'><p>Artikel <span id='variant_" + variant.id + "' class='number'>" + variant.number + "</span> wurde gefunden. </p><span variant='" + variant.id + "' class='use_variant btn' onclick='usevariant(" + variant.id + "," + umbuchen + "," + incomings + ");'><i class='material-icons'>done</i></span></div>");
 
                     }
                 });
@@ -103,7 +104,11 @@ function findVariant(barcode) {
                     $('.use_variant').remove();
                     $('.locationEan').removeAttr("disabled");
                     if ($('#menu_var').text() == "umbuchen") {
-                        findPlaces();
+                        findPlaces(used, umbuchen, incomings);
+                    } else if (incomings) {
+                        $('#menge').attr("number", number);
+                        $('#menge').attr("variationid", variationid);
+                        mengeincoming();
                     } else {
                         menge();
                     }
@@ -122,7 +127,27 @@ function findVariant(barcode) {
     });
 }
 
+function refreshstatus() {
+    console.log(incoming);
+    $('#output').html("");
+    $('#articleean').select();
+    $('#status').html("<p class='green'>Sie haben <b>" + Object.keys(incoming).length + "</b> Artikel hinzugefügt&nbsp;<input type='button' value='Leeren' class='btn' onclick='clearincomings();'>&nbsp;<input type='button' value='Anzeigen' class='btn' onclick='showincomings();'></p>");
+}
+
+function clearincomings() {
+    incoming = new Object();
+    $('#status').html("");
+    $('#articleean').removeAttr("disabled");
+    $('#articleean').select();
+    $('#articleean').focus();
+}
+
+function showincomings() {
+    console.log(incoming);
+}
+
 function findPlace(locationean) {
+    incoming = new Object();
     var x = locationean.split("L");
     var error = 0;
     if (typeof x[1] != 'undefined') {
@@ -147,7 +172,11 @@ function findPlace(locationean) {
                 "Authorization": "Bearer " + localStorage.getItem("accessToken")
             },
             success: function(data) {
-                console.log(data);
+                $('#output_place').html("<p class='find-true'>Lagerort <b>" + data.name + "</b> wurde gefunden</p>");
+                $('.findPlace').prop("disabled", true);
+                $('.back').removeAttr("disabled");
+                $('#articleean').removeAttr("disabled");
+                $('#articleean').focus();
 
             },
             error: function(data) {
@@ -225,7 +254,7 @@ function findPlaces() {
 /**
  * Funktion die, die Lagerortnamen ermittelt
  * TO-DO: leider ist dies zurzeit nur möglich über einen Extra-Call der Rest-Api, d.h. es ist nicht sonderlich performant
- * @param array
+ * @param locationnames:array
  */
 function getLocationName(locationames) {
     $('#load').show();
@@ -302,16 +331,54 @@ function logout() {
 /**
  * Funktion die bestimmt ob die standardisierte menge aktiviert ist
  */
-function menge() {
+function menge(next = false) {
     $('.back').removeAttr("disabled");
     if ($("#standart_menge").is(':checked')) {
-        $('.locationEan').removeAttr("disabled");
-        $('.locationEan').select();
+        if (next != false) {
+            next.removeAttr("disabled");
+            next.select();
+        } else {
+            $('.locationEan').removeAttr("disabled");
+            $('.locationEan').select();
+        }
+
     } else {
-        $('.locationEan').removeAttr("disabled");
+        if (next != false) {
+            next.removeAttr("disabled");
+        } else {
+            $('.locationEan').removeAttr("disabled");
+        }
         $('#menge').val("1");
         $('#menge').select();
     }
+}
+
+function mengeincoming(next = false) {
+    $('.back').removeAttr("disabled");
+    var variationId = $('#menge').attr("variationId");
+    var number = $('#menge').attr("number");
+
+    if ($("#standart_menge").is(':checked')) {
+        var menge = $('#menge').val();
+        addincomingitem(variationId, number, menge);
+        refreshstatus();
+    } else {
+        $('#menge').val("1");
+        $('#menge').select();
+
+    }
+}
+
+function addincomingitem(id, number, menge) {
+    if (typeof(incoming[id]) === "undefined") {
+        incoming[id] = new Object();
+        incoming[id] = [number, parseInt(menge)];
+    } else {
+        var old = incoming[id][1];
+        var newx = parseInt(old) + parseInt(menge);
+        incoming[id] = [number, newx];
+    }
+
 }
 /**
  * Funktion die prüft ob der accessToken im LocalStorage gültig ist, wenn nicht erscheint die Login-Maske
@@ -340,7 +407,7 @@ function checkaccess() {
 /**
  * Funktion die einen Artikel "benutzt" beim button "Ok" wenn mehrere Artikel gefunden wurden
  */
-function usevariant(id, umbuchen = false) {
+function usevariant(id, umbuchen = false, incomings = false) {
 
     var number = $("#variant_" + id).text();
     $('#output').html("<div class='find-true'>Artikel <span class='number'>" + number + "</span> wurde ausgewählt</div>");
@@ -351,6 +418,10 @@ function usevariant(id, umbuchen = false) {
             findPlaces();
         }, 20);
 
+    } else if (incomings) {
+        $('#menge').attr("variationid", variationId);
+        $('#menge').attr("number", number);
+        mengeincoming();
     } else {
         menge();
     }
