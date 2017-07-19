@@ -46,6 +46,7 @@ $(document).ready(function() {
         });
         alert("Speichern erfolgreich");
         $('#myModal').modal("hide");
+        refreshstatus();
     });
 
 });

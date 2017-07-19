@@ -128,10 +128,13 @@ function findVariant(barcode, umbuchen = false, incomings = false) {
 }
 
 function refreshstatus() {
-    console.log(incoming);
-    $('#output').html("");
-    $('#articleean').select();
-    $('#status').html("<p class='green'>Sie haben <b>" + Object.keys(incoming).length + "</b> Artikel hinzugefügt&nbsp;<input style='margin-bottom: 4px;' type='button' value='Leeren' class='btn' onclick='clearincomings();'>&nbsp;<input style='margin-bottom: 4px;' type='button' value='Anzeigen' class='btn' onclick='showincomings();'>&nbsp;<input style='margin-bottom: 4px;' type='button' value='Wareneingänge buchen' class='btn' onclick='bookincomings();'></p>");
+    if (Object.keys(incoming).length > 0) {
+        $('#output').html("");
+        $('#articleean').select();
+        $('#status').html("<p class='green'>Sie haben <b>" + Object.keys(incoming).length + "</b> Artikel hinzugefügt&nbsp;<input style='margin-bottom: 4px;' type='button' value='Leeren' class='btn' onclick='clearincomings();'>&nbsp;<input style='margin-bottom: 4px;' type='button' value='Anzeigen' class='btn' onclick='showincomings();'>&nbsp;<input style='margin-bottom: 4px;' type='button' value='Wareneingänge buchen' class='btn' onclick='bookincomings();'></p>");
+    } else {
+        $('#output').html("<p class='find-false'>Sie haben noch keine Artikel hinzugefügt</p>");
+    }
 }
 
 function clearincomings() {
