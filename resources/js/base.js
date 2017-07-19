@@ -179,7 +179,8 @@ function bookincomings() {
                 $('#output').html("<p class='green'>Wareneingänge wurden erfolgreich gebucht.</p>");
             },
             error: function(data) {
-                console.log(data)
+                var json = $.parseJSON(data.responseText);
+                $('#output').html("<div class='find-false'><p>PlentyMarkets meldet folgenden Fehler: <br/> ErrorCode: " + json.error.code + " <br/> Message: " + json.error.message + "</p></div>");
             }
         });
     } else {
@@ -870,6 +871,21 @@ function deletefreeplace(id) {
     returnfreeplaces();
 }
 
+function changemodul(modul) {
+    switch ($('#menu_var').text()) {
+        case "einbuchen":
+            if (modul == "std") {
+                window.location = "/storage";
+            } else {
+                window.location = "/storage/incoming";
+            }
+            break;
+    }
+}
+
+function getmodul() {
+    $('#menu_module_select').val($('#menu_model').text());
+}
 /**
  * Wenn das dokument ready ist
  */
@@ -960,4 +976,8 @@ $(document).ready(function() {
      * Definiert Menu/Tab
      */
     $('.menutip[menu=' + $('#menu_var').text() + ']').removeClass("menutip");
+    getmodul();
+    $('#menu_module_select').change(function() {
+        changemodul($(this).val());
+    });
 });
