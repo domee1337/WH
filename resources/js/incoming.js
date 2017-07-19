@@ -29,6 +29,7 @@ $(document).ready(function() {
     $('#articleean').bind("keydown", function(e) {
         if (e.keyCode === 13) {
             findVariant($(this).val(), false, true);
+
         }
     });
 
