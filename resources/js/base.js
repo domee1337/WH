@@ -151,6 +151,7 @@ function bookincomings() {
     var z = 1;
     var l = Object.keys(incoming).length;
     var sep = "";
+
     if (l > 0) {
         $.each(incoming, function(key, data) {
             if (z != l) {
@@ -188,6 +189,7 @@ function bookincomings() {
 }
 
 function findPlace(locationean) {
+    $('#output').html("");
     incoming = new Object();
     var x = locationean.split("L");
     var error = 0;
@@ -205,30 +207,37 @@ function findPlace(locationean) {
     if (error === 0) {
         var lager = xx[0];
         var location = xx[1];
+        if (warehouses[lager] == "1") {
+            $.ajax({
+                type: "GET",
+                url: "/rest/stockmanagement/warehouses/" + lager + "/management/storageLocations/" + location + "",
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("accessToken")
+                },
+                success: function(data) {
+                    usedlocation = location;
+                    usedwarehouse = lager;
+                    $('#output_place').html("<p class='find-true'>Lagerort <b>" + data.name + "</b> wurde gefunden</p>");
+                    $('.findPlace').prop("disabled", true);
+                    $('.back').removeAttr("disabled");
+                    $('#articleean').removeAttr("disabled");
+                    $('#articleean').focus();
 
-        $.ajax({
-            type: "GET",
-            url: "/rest/stockmanagement/warehouses/" + lager + "/management/storageLocations/" + location + "",
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("accessToken")
-            },
-            success: function(data) {
-                usedlocation = location;
-                usedwarehouse = lager;
-                $('#output_place').html("<p class='find-true'>Lagerort <b>" + data.name + "</b> wurde gefunden</p>");
-                $('.findPlace').prop("disabled", true);
-                $('.back').removeAttr("disabled");
-                $('#articleean').removeAttr("disabled");
-                $('#articleean').focus();
-
-            },
-            error: function(data) {
-                var json = $.parseJSON(data.responseText);
-                $('#output').html("<div class='find-false'><p>PlentyMarkets meldet folgenden Fehler: <br/> ErrorCode: " + json.error.code + " <br/> Message: " + json.error.message + "</p></div>");
-                $('.findArticle').removeAttr("disabled");
-                $('.findArticle').select();
-            }
-        });
+                },
+                error: function(data) {
+                    var json = $.parseJSON(data.responseText);
+                    $('#output').html("<div class='find-false'><p>PlentyMarkets meldet folgenden Fehler: <br/> ErrorCode: " + json.error.code + " <br/> Message: " + json.error.message + "</p></div>");
+                    $('.findArticle').removeAttr("disabled");
+                    $('.findArticle').select();
+                }
+            });
+        } else {
+            $('#output').html("<p class='find-false'>Das von Ihnen gewählte Lager wurde nicht gefunden oder Sie haben es nicht ausgewählt</p>");
+            $('.findPlace').select();
+        }
+    } else {
+        $('#output').html("<p class='find-false'>Bitte überprüfen Sie Ihre Eingabe</p>");
+        $('.findPlace').select();
     }
 
 }
@@ -240,6 +249,7 @@ function findPlaces() {
     $('#load').show();
     $('#lagerorteoutput').show();
     $('#lagerorteoutput').html("");
+
     $('#selectedoutput').hide();
     var comp = 0;
     var warehousesc = 0;
