@@ -115,4 +115,46 @@ class ContentController extends Controller
       return json_encode($return);
 
     }
+
+    public function GetOrder(Request $request)
+    {
+        $rs = $request->all();
+        $curl = curl_init();
+        $rs['action'] = "GetOrder";
+        $url = "http://pherrewyn1.timmeserver.de/StorageRest/";
+        $url = sprintf("%s?%s", $url, http_build_query($rs));
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($result);
+    }
+
+    public function GetArticlePlaces(Request $request)
+    {
+      $rs = $request->all();
+      $curl = curl_init();
+      $rs['action'] = "GetArticlePlaces";
+      $url = "http://pherrewyn1.timmeserver.de/StorageRest/";
+      $url = sprintf("%s?%s", $url, http_build_query($rs));
+      curl_setopt($curl, CURLOPT_URL, $url);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+      $result = curl_exec($curl);
+      curl_close($curl);
+      return json_decode($result);
+    }
+
+    public function FinishArticle(Request $request)
+    {
+      $rs = $request->all();
+      $curl = curl_init();
+      $rs['action'] = "FinishArticle";
+      $url = "http://pherrewyn1.timmeserver.de/StorageRest/";
+      $url = sprintf("%s?%s", $url, http_build_query($rs));
+      curl_setopt($curl, CURLOPT_URL, $url);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+      $result = curl_exec($curl);
+      curl_close($curl);
+      return json_decode($result);
+    }
 }
