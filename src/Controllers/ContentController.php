@@ -109,7 +109,7 @@ class ContentController extends Controller
       curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
       $result = curl_exec($curl);
       curl_close($curl);
-      return json_decode($result);
+      return $result;
     }
 
     public function FinishArticle(Request $request)
@@ -123,6 +123,6 @@ class ContentController extends Controller
       curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
       $result = curl_exec($curl);
       curl_close($curl);
-      return json_decode($result);
+      return $result;
     }
 }
