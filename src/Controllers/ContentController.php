@@ -49,10 +49,7 @@ class ContentController extends Controller
       $resultx = $whRepo->all();
       return $resultx;
     }
-    public function test(CSVGenerator $csv)
-    {
 
-    }
     /**
      * @param int                           $id
      * @param StockRepositoryContract       $stockRepo
@@ -83,38 +80,9 @@ class ContentController extends Controller
     }
 
 
-    /**
-     * @param  \Plenty\Plugin\Http\Request  $request
-     * @param StockRepositoryContract       $stockRepo
-     * @return string
-     */
-    public function correctStock(Request $request, StockRepositoryContract $stockrepo)
-    {
 
-    }
 
-    public function findArticle(Request $request, VariationLookupRepositoryContract $varRepo, VariationRepositoryContract $varRepoCo)
-    {
-      $rs = $request->all();
 
-      $varRepo->hasBarcode($rs['barcode']);
-      $result = $varRepo->lookup();
-      if(empty($result))
-      {
-        $return['valid'] = false;
-      }
-      else {
-        foreach($result as $item)
-        {
-          $resultx = $varRepoCo->findById($item['variationId']);
-          $return['variants'][] = $resultx;
-        }
-        $return['valid'] = true;
-
-      }
-      return json_encode($return);
-
-    }
 
     public function GetOrder(Request $request)
     {

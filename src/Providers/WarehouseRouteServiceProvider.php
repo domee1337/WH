@@ -20,7 +20,7 @@ class WarehouseRouteServiceProvider extends RouteServiceProvider{
         $router->get('storage/incoming',                  'WH\Controllers\ContentController@render_incoming');
         $router->get('storage/rest/GetOrder',                  'WH\Controllers\ContentController@GetOrder');
         $router->get('storage/rest/GetArticlePlaces',                  'WH\Controllers\ContentController@GetArticlePlaces');
-        $router->get('storage/rest/FinishArticle',                  'WH\Controllers\ContentController@FinishArticle');
+        $router->get('storage/rest/FinishArticle',                  'WH\Controllers\ContentController@FinishArticle'); 
     }
 
 }
