@@ -924,11 +924,12 @@ function changemodul(modul) {
 }
 
 function getmodul() {
-  if($('#menu_var') == "umbuchen")
+  if($('#menu_var').text() == "umbuchen")
   {
     $('#menu_module_select').html("<option val='std'>Standard</option><option val='order'>Bestellung</option>");
   }
-    $('#menu_module_select').val($('#menu_model').text());
+
+  $('#menu_module_select').val($('#menu_model').text());
 }
 
 function loadwarehouses(){
@@ -1061,6 +1062,7 @@ $(document).ready(function() {
     /**
      * Definiert Menu/Tab
      */
+
     $('.menutip[menu=' + $('#menu_var').text() + ']').removeClass("menutip");
     getmodul();
     $('#menu_module_select').change(function() {
