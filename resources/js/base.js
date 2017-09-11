@@ -912,23 +912,75 @@ function changemodul(modul) {
                 window.location = "/storage/incoming";
             }
             break;
+        case "umbuchen":
+          if(modul == "std"){
+            window.location "/storage/transfer"
+          }
+          else {
+            window.location "/storage/transfer/order"
+          }
+          break;
     }
 }
 
 function getmodul() {
+  if($('#menu_var') == "umbuchen")
+  {
+    $('#menu_module_select').html("<option val='std'>Standard</option><option val='order'>Bestellung</option>");
+  }
     $('#menu_module_select').val($('#menu_model').text());
 }
+
+function loadwarehouses(){
+  $('.warehousecheckbox').each(function() {
+      var local = localStorage.getItem($(this).attr('whid'));
+      if(local == 1)
+      {
+      warehouses[$(this).attr('whid')] = new Object();
+      warehouses[$(this).attr('whid')] = 1;
+      $(this).prop("checked", true);
+      }
+      else {
+        warehouses[$(this).attr('whid')] = new Object();
+        warehouses[$(this).attr('whid')] = 0;
+        $(this).removeAttr("checked");
+      }
+  });
+}
+
+function findOrder(orderId)
+{
+  $.ajax({
+      type: "GET",
+      url: "/storage/rest/GetOrder",
+      data: {
+          orderId: orderId
+      },
+      success: function(data) {
+          console.log(data);
+      },
+      error: function(data) {
+        console.log(data);
+      }
+});
 /**
  * Wenn das dokument ready ist
  */
 $(document).ready(function() {
     checkaccess();
-
+    loadwarehouses();
     /**
      * Button "login" -> funktion login();
      */
     $('#submit').click(function() {
         login();
+    });
+
+    $('.findOrder').bind("keydown", function(e){
+      if(e.KeyCode === 13)
+      {
+        findOrder($(this).val());
+      }
     });
     /**
      * Input "username" bei enter -> funktion login();
@@ -975,6 +1027,7 @@ $(document).ready(function() {
             }
             warehouses[$(this).attr('whid')] = new Object();
             warehouses[$(this).attr('whid')] = checked;
+            localStorage.setItem($(this).attr('whid'), checked);
         });
 
         if ($('.findarticle').is(":disabled") && $('#menu_var').text() == "umbuchen" && $('.locationean').is(":disabled")) {

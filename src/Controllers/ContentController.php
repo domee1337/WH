@@ -38,6 +38,14 @@ class ContentController extends Controller
       $templateData = array('warehouses' => $result);
       return $twig->render('WH::content.transfer', $templateData);
     }
+
+    public function render_transfer_order(Twig $twig, WarehouseRepositoryContract $whRepo)
+    {
+      $result = $whRepo->all();
+      $templateData = array('warehouses' => $result);
+      return $twig->render('WH::content.transfer_order', $templateData);
+    }
+
     public function render_inventur(Twig $twig, WarehouseRepositoryContract $whRepo)
     {
       $result = $whRepo->all();

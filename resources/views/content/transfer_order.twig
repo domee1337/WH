@@ -1,0 +1,25 @@
+{% extends "WH::content.header" %}
+
+{% block Body %}
+  <div class="body" id="menu_umbuchen">
+      <hr>
+      <br />
+      <!-- body -->
+      <input type="text" class="form-control findOrder" placeholder="OrderId">
+      <input type="text" class="form-control findOrderArticle" placeholder="EAN" disabled>
+      <input type="button" class="btn back" value="Zurück" disabled>
+      <div id="output" class="output"></div>
+      <div id="lagerorteoutput" class="output"></div>
+      <div id="selectedoutput" class="output"></div>
+      <br />
+      <p class="inline">Menge: </p><input type="number" id="menge" value="1" class="form-control inline"><input type="checkbox" id="standart_menge"><p class="inline">Standardisierte Menge</p>
+      <input type="text" id="lagerortean" placeholder="Lagerortbarcode" class="form-control locationEan" disabled>
+      <br />
+      <!-- body end -->
+  </div>
+</div>
+
+<span id="menu_var" style="display: none;">umbuchen</span>
+<span id="menu_model" style="display: none;">order</span>
+<script src="{{ plugin_path('WH') }}/js/transfer.js"></script>
+{% endblock %}
