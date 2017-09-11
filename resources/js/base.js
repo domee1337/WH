@@ -914,10 +914,10 @@ function changemodul(modul) {
             break;
         case "umbuchen":
           if(modul == "std"){
-            window.location "/storage/transfer"
+            window.location = "/storage/transfer";
           }
           else {
-            window.location "/storage/transfer/order"
+            window.location = "/storage/transfer/order";
           }
           break;
     }
@@ -962,7 +962,8 @@ function findOrder(orderId)
       error: function(data) {
         console.log(data);
       }
-});
+    });
+}
 /**
  * Wenn das dokument ready ist
  */
