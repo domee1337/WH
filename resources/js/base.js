@@ -978,12 +978,7 @@ $(document).ready(function() {
         login();
     });
 
-    $('.findOrder').bind("keydown", function(e){
-      if(e.KeyCode === 13)
-      {
-        findOrder($(this).val());
-      }
-    });
+
     /**
      * Input "username" bei enter -> funktion login();
      */
