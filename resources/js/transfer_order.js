@@ -54,7 +54,7 @@ $(document).ready(function() {
 
     $('.findOrder').bind("keydown", function(e){
       if(e.KeyCode === 13)
-      {
+      { 
         findOrder($(this).val());
       }
     });
