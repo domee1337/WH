@@ -896,13 +896,12 @@ function returnfreeplaces(exp = "0") {
 
 function togglefreielagerorte() {
     
-    $('#freeplaces').attr("id", "freeplaces_2");
-    if($('#freeplaces'))
+    if($('#freeplaces').length)
     {
         $('#freeplaces').attr("id", "freeplaces_2");
         $('#freeplacesdialog').show();
     }
-    else if($('#freeplaces_2'))
+    else if($('#freeplaces_2').length)
     {
         $('#freeplaces_2').attr("id", "freeplaces");
         $('#freeplacesdialog').hide();
