@@ -1,3 +1,13 @@
+#freeplacesdialog{
+    width: 200px;
+    position: absolute;
+    background-color: white;
+    left: -11em;
+    top: 8em;
+    border: 1px solid #D8D8D8;
+    padding: 5px;
+}
+
 body {
     font-size: 20px;
     background-color: #F2F2F2;
@@ -288,12 +298,15 @@ Left and right Button
   -o-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
-  float: left !important;
   position: absolute;
   left: -6em;
   top: 12em;
 }
-
+#freeplaces_2{
+    position: absolute;
+    left: -12em;
+    top: 7em;
+}
 #aktplaces{
     -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);

@@ -895,7 +895,19 @@ function returnfreeplaces(exp = "0") {
 }
 
 function togglefreielagerorte() {
-    $('#freeplacesdialog').dialog("open");
+    
+    $('#freeplaces').attr("id", "freeplaces_2");
+    if($('#freeplaces'))
+    {
+        $('#freeplaces').attr("id", "freeplaces_2");
+        $('#freeplacesdialog').show();
+    }
+    else if($('#freeplaces_2'))
+    {
+        $('#freeplaces_2').attr("id", "freeplaces");
+        $('#freeplacesdialog').hide();
+    }
+    
 }
 
 function deletefreeplace(id) {
